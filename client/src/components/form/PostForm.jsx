@@ -145,16 +145,16 @@ const PostForm = ({ communityId, communityName }) => {
         confirmationToken={confirmationToken}
       />
 
-      <form onSubmit={handleSubmit} className="border-b bg-white p-6">
+      <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm">
         <div className="mb-4">
           <label
             htmlFor="content"
-            className="mb-2 block font-bold text-gray-700"
+            className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500"
           >
-            Share something with your community:
+            Share something with your community
           </label>
           <textarea
-            className="w-full resize-none rounded-md border p-2"
+            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
             name="content"
             id="content"
             value={formData.content}
@@ -168,23 +168,25 @@ const PostForm = ({ communityId, communityName }) => {
         <div className="mb-4">
           <label
             htmlFor="file"
-            className="mx-auto mt-6 flex cursor-pointer items-center rounded-lg border-2 border-dashed bg-white px-3 py-3 text-center"
+            className="mx-auto mt-2 flex cursor-pointer items-center rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-center transition hover:border-blue-400 hover:bg-blue-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-gray-300"
+              className="h-5 w-5 text-slate-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2}
+              strokeWidth={1.8}
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8-4-4m0 0L8 8m4-4v12"
               />
             </svg>
-            <h2 className="mx-3 text-gray-400">Photo / Video</h2>
+            <h2 className="mx-3 text-sm font-medium text-slate-500">
+              Attach photo or video
+            </h2>
             <input
               name="file"
               type="file"
@@ -196,24 +198,26 @@ const PostForm = ({ communityId, communityName }) => {
           </label>
 
           {formData.file && (
-            <div className="mt-4 flex items-center justify-between">
-              <p className="text-gray-500">{formData.file.name}</p>
+            <div className="mt-3 flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2">
+              <p className="truncate text-xs text-slate-600">
+                {formData.file.name}
+              </p>
               <button
                 type="button"
                 onClick={handleRemoveFile}
-                className="text-red-500 hover:text-red-700"
+                className="inline-flex items-center justify-center rounded-full p-1 text-slate-500 transition hover:bg-red-50 hover:text-red-500"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="h-4 w-4"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  strokeWidth={2}
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
@@ -221,21 +225,22 @@ const PostForm = ({ communityId, communityName }) => {
             </div>
           )}
 
-          {formData.error && <p className="text-red-500">{formData.error}</p>}
+          {formData.error && (
+            <p className="mt-2 text-xs text-red-500">{formData.error}</p>
+          )}
         </div>
 
-        <button
-          className={`rounded bg-primary px-4 py-1 text-sm text-white hover:bg-blue-700 ${
-            formData.loading ? "cursor-not-allowed opacity-50" : ""
-          }`}
-          type="submit"
-          disabled={formData.loading || (!formData.content && !formData.file)}
-          style={{
-            display: formData.content || formData.file ? "block" : "none",
-          }}
-        >
-          {formData.loading ? "Processing..." : "Create post"}
-        </button>
+        <div className="flex justify-end">
+          <button
+            className={`inline-flex items-center rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 ${
+              formData.loading ? "cursor-not-allowed opacity-70" : ""
+            }`}
+            type="submit"
+            disabled={formData.loading || (!formData.content && !formData.file)}
+          >
+            {formData.loading ? "Processing..." : "Create post"}
+          </button>
+        </div>
       </form>
     </>
   );

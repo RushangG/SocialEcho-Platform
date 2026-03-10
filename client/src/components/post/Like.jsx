@@ -53,14 +53,16 @@ const Like = ({ post }) => {
   return (
     <button
       onClick={toggleLike}
-      className="flex items-center cursor-pointer gap-1 text-lg"
+      className={`inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium transition hover:bg-slate-100 ${
+        likeState.liked ? "text-blue-600" : "text-slate-700"
+      }`}
     >
       {likeState.liked ? (
-        <HiHandThumbUp className="text-2xl" />
+        <HiHandThumbUp className="text-xl" />
       ) : (
-        <HiOutlineHandThumbUp className="text-2xl" />
+        <HiOutlineHandThumbUp className="text-xl" />
       )}{" "}
-      {likeState.localLikes}
+      <span className="text-sm">{likeState.localLikes}</span>
     </button>
   );
 };

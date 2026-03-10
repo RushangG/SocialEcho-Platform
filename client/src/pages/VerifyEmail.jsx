@@ -56,17 +56,31 @@ const VerifyEmail = () => {
   }
 
   return (
-    <div className="fixed inset-0 z-10 overflow-y-auto">
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="rounded-md bg-white p-6 shadow-md">
-          <h2 className="mb-4 text-2xl font-bold">Verify your email address</h2>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4 py-10">
+      <div className="mx-auto flex w-full max-w-lg items-center justify-center">
+        <div className="w-full rounded-2xl bg-white/95 p-6 shadow-lg ring-1 ring-slate-200 backdrop-blur-sm sm:p-8">
+          <div className="mb-5 flex items-start gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 22a10 10 0 0010-10V9l-10-5-10 5v3a10 10 0 0010 10z" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <h2 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl">
+                Verify your email
+              </h2>
+              <p className="mt-1 text-sm text-slate-500">
+                Enter the code from your email to finish setting up your account.
+              </p>
+            </div>
+          </div>
 
           {!codeFromUrl && !emailFromUrl && (
-            <p className="mb-4">
+            <p className="mb-4 text-sm text-slate-600">
               A verification code was sent to your email address. Please either
-              <span className="font-bold"> follow </span>
+              <span className="font-semibold"> follow </span>
               the link in the email or
-              <span className="font-bold"> enter </span>
+              <span className="font-semibold"> enter </span>
               the code below.
             </p>
           )}
@@ -75,31 +89,33 @@ const VerifyEmail = () => {
             <input
               type="text"
               placeholder="Verification code"
-              className="w-full rounded-lg border-2 border-gray-200 p-2"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
               value={code}
               onChange={handleCodeChange}
             />
           </div>
-          {error && <div className="mb-4 text-sm text-red-500">{error}</div>}
-          <button
-            disabled={loading}
-            className="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-            onClick={handleVerify}
-          >
-            {loading ? (
-              <LoadingSpinner loadingText={"Verifying..."} />
-            ) : (
-              "Verify"
-            )}
-          </button>
-          <button
-            className="ml-4 rounded-lg bg-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-400"
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            Cancel
-          </button>
+          {error && (
+            <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button
+              disabled={loading}
+              className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+              onClick={handleVerify}
+            >
+              {loading ? <LoadingSpinner loadingText={"Verifying..."} /> : "Verify"}
+            </button>
+            <button
+              className="inline-flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-100 sm:w-auto"
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

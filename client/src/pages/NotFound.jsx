@@ -4,56 +4,41 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="bg-white">
-      <div className="container mx-auto flex min-h-screen items-center px-6 py-12">
-        <div className="mx-auto flex max-w-sm flex-col items-center text-center">
-          <p className="rounded-full bg-blue-50 p-3 text-sm font-medium text-blue-500">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-6 w-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4 py-10">
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-xl items-center justify-center">
+        <div className="w-full rounded-2xl bg-white/95 p-6 text-center shadow-lg ring-1 ring-slate-200 backdrop-blur-sm sm:p-8">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-          </p>
-          <h1 className="mt-3 text-2xl font-semibold text-gray-800">
+          </div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">
             Page not found
           </h1>
-          <p className="mt-4 text-gray-500">
-            The page you are looking for doesn't exist.
+          <p className="mt-2 text-sm text-slate-600">
+            The page you’re looking for doesn’t exist or was moved.
           </p>
-          <div className="mt-6 flex w-full shrink-0 items-center gap-x-3 sm:w-auto">
-            <button className="flex w-1/2 items-center justify-center gap-x-2 rounded-lg border bg-white px-5 py-2 text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-100 sm:w-auto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-5 w-5 rtl:rotate-180"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                />
+          <div className="mt-6 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-100 sm:w-auto"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.7">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
               </svg>
-              <span onClick={() => navigate(-1)}>Go back</span>
+              Go back
             </button>
-            <button className="w-1/2 shrink-0 rounded-lg bg-blue-500 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 hover:bg-blue-600 sm:w-auto">
-              <Link to="/">Take me home</Link>
-            </button>
+            <Link
+              to="/"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 sm:w-auto"
+            >
+              Back to Home
+            </Link>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

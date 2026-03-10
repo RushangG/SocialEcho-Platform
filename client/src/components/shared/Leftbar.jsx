@@ -35,92 +35,104 @@ const Leftbar = ({ showLeftbar }) => {
   }, [visibleCommunities]);
 
   return (
-    <div className={`${showLeftbar ? "" : "hidden"} leftbar`}>
-      <div className="flex flex-col justify-start items-center">
-        <div className="flex flex-col items-start gap-4 w-full p-5">
-          <Link
-            className="flex items-center gap-2 text-lg font-medium hover:text-primary"
-            to="/home"
-          >
-            <HiOutlineHome className="text-xl" />
-            <p>Home</p>
-          </Link>
-          <Link
-            className="flex items-center gap-2 text-lg font-medium hover:text-primary"
-            to="/profile"
-          >
-            <HiOutlineUserCircle className="text-xl" />
-            <p>Profile</p>
-          </Link>
-          <Link
-            className="flex items-center gap-2 text-lg font-medium hover:text-primary"
-            to="/saved"
-          >
-            <HiOutlineTag className="text-xl" />
-            <p>Saved</p>
-          </Link>
-
-          {user && user.role === "general" && (
+    <aside
+      className={`${showLeftbar ? "" : "hidden"} leftbar`}
+      aria-label="Primary navigation"
+    >
+      <div className="flex h-full flex-col justify-start">
+        <div className="flex w-full flex-col gap-4 px-5 pb-5">
+          <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Navigation
+          </div>
+          <nav className="flex flex-col gap-2 text-sm">
             <Link
-              className="flex items-center gap-2 text-lg font-medium hover:text-primary"
-              to="/following"
+              className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+              to="/home"
             >
-              <HiOutlineRectangleStack className="text-xl" />
-              <p>Following</p>
+              <HiOutlineHome className="text-lg" />
+              <span>Home</span>
             </Link>
-          )}
+            <Link
+              className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+              to="/profile"
+            >
+              <HiOutlineUserCircle className="text-lg" />
+              <span>Profile</span>
+            </Link>
+            <Link
+              className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+              to="/saved"
+            >
+              <HiOutlineTag className="text-lg" />
+              <span>Saved</span>
+            </Link>
 
-          <hr className="w-full my-4 border-gray-300" />
+            {user && user.role === "general" && (
+              <Link
+                className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+                to="/following"
+              >
+                <HiOutlineRectangleStack className="text-lg" />
+                <span>Following</span>
+              </Link>
+            )}
+          </nav>
+
+          <hr className="my-3 w-full border-slate-200" />
+
+          <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+            Communities
+          </div>
 
           {communityLinks && communityLinks.length > 0 ? (
             <div className="w-full">
-              <div className="flex items-center justify-between">
-                <div className="flex gap-1 font-medium items-center">
-                  <HiOutlineUserGroup className="text-xl" />
-                  Communities
+              <div className="mb-1 flex items-center justify-between">
+                <div className="flex items-center gap-1 text-sm font-medium text-slate-700">
+                  <HiOutlineUserGroup className="text-lg" />
+                  <span>Joined</span>
                 </div>
 
                 <Link
-                  className="flex relative items-center text-sm font-medium text-primary mr-4"
+                  className="relative flex items-center text-xs font-medium text-primary"
                   to="/my-communities"
                 >
                   See all
-                  <p className="absolute -top-2 -right-4 text-white text-xs bg-primary w-4 h-4 rounded-full flex justify-center items-center">
-                    {" "}
+                  <span className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-semibold text-white">
                     {joinedCommunities.length}
-                  </p>
+                  </span>
                 </Link>
               </div>
-              <ul className="w-full mt-3">
+              <ul className="mt-2 w-full space-y-1">
                 {communityLinks.map((communityLink) => (
                   <li key={communityLink.href}>
                     <Link
-                      className="flex items-center hover:text-primary text-gray-600 font-medium gap-2 py-1"
+                      className="flex items-center gap-2 rounded-lg px-2 py-1 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-primary"
                       to={communityLink.href}
                     >
-                      {communityLink.label}
+                      <span className="line-clamp-1">{communityLink.label}</span>
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
-            <div>No communities found.</div>
+            <div className="mt-1 text-sm text-slate-400">No communities found.</div>
           )}
+
           {user && user.role === "general" && (
-            <div className="md:hidden">
-              <hr className="w-full my-4 border-gray-300" />
-              <div className="flex justify-center gap-1 items-center">
-                <GiTeamIdea />
-                <Link to="/communities" className="text-primary font-medium">
-                  See all communities
+            <div className="mt-5 md:hidden">
+              <hr className="my-3 w-full border-slate-200" />
+              <div className="flex items-center justify-center gap-1 text-sm">
+                <GiTeamIdea className="text-primary" />
+                <Link to="/communities" className="font-medium text-primary">
+                  Discover all communities
                 </Link>
               </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 

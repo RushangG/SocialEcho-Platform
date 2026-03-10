@@ -17,36 +17,36 @@ const CommentSidebar = ({ comments }) => {
   };
 
   return (
-    <div className="col-span-1 bg-white sticky top-20 h-[85vh] p-5 rounded-md border overflow-y-auto">
+    <aside className="col-span-1 h-auto overflow-y-auto rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm md:sticky md:top-20 md:h-[85vh]" aria-label="Comments">
       {currentComments.length > 0 && (
         <div>
-          <h2 className="font-semibold mb-4 text-center py-2 border-b-2">
+          <h2 className="mb-4 border-b border-slate-200 py-2 text-center text-sm font-semibold text-slate-800">
             Recent Comments
           </h2>
           {currentComments.map((comment) => (
             <div
               key={comment._id}
-              className="flex flex-col bg-white p-2 border-b w-full"
+              className="flex w-full flex-col border-b border-slate-100 p-3"
             >
               <div className="flex gap-1">
                 <img
                   src={comment.user.avatar}
                   alt="User Avatar"
-                  className="rounded-full overflow-hidden w-[30px] h-[30px] object-cover"
+                  className="h-8 w-8 rounded-full object-cover ring-2 ring-slate-100"
                 />
 
                 <div className="flex flex-col">
-                  <span className="text-md font-semibold hover:underline">
+                  <span className="text-sm font-semibold text-slate-800 hover:underline">
                     <Link to={`/user/${comment.user._id}`}>
                       {comment.user.name}
                     </Link>
                   </span>
-                  <p className="text-gray-500 text-xs ml-1">
+                  <p className="ml-1 text-xs text-slate-500">
                     {comment.createdAt}
                   </p>
                 </div>
               </div>
-              <p className="text-sm mt-2 whitespace-normal break-words">
+              <p className="mt-2 break-words whitespace-normal text-sm text-slate-700">
                 {comment.content}
               </p>
             </div>
@@ -54,7 +54,7 @@ const CommentSidebar = ({ comments }) => {
 
           {currentComments.length < comments.length && (
             <button
-              className="text-primary text-sm font-semibold mt-3 w-full"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-primary shadow-sm transition hover:bg-slate-50"
               onClick={handleLoadMore}
             >
               Load More
@@ -64,11 +64,12 @@ const CommentSidebar = ({ comments }) => {
       )}
 
       {currentComments.length === 0 && (
-        <div className="flex flex-col items-center justify-center h-full">
-          <p className="text-lg font-semibold mb-4">No Comments Yet</p>
+        <div className="flex h-full flex-col items-center justify-center">
+          <p className="mb-1 text-sm font-semibold text-slate-800">No comments yet</p>
+          <p className="text-xs text-slate-500">Be the first to start the conversation.</p>
         </div>
       )}
-    </div>
+    </aside>
   );
 };
 

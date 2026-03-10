@@ -57,20 +57,20 @@ const Save = ({ postId }) => {
   return (
     <button
       onClick={saved ? handleUnsave : handleSave}
-      className="flex items-center gap-1 mr-2 tooltip"
+      className="tooltip inline-flex items-center justify-center rounded-lg p-2 text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70"
       disabled={isSaving}
     >
       {isSaving ? (
-        "Saving..."
+        <span className="text-xs">Saving...</span>
       ) : saved ? (
         <>
           <span className="tooltiptext">Remove from saved</span>
-          <HiOutlineArchiveBoxXMark className="text-2xl" />
+          <HiOutlineArchiveBoxXMark className="text-xl text-blue-600" />
         </>
       ) : (
         <>
           <span className="tooltiptext">Save post</span>
-          <HiOutlineArchiveBoxArrowDown className="text-2xl" />
+          <HiOutlineArchiveBoxArrowDown className="text-xl" />
         </>
       )}
     </button>
