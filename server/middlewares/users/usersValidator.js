@@ -50,19 +50,10 @@ const addUserValidatorHandler = (req, res, next) => {
   if (Object.keys(mappedErrors).length === 0) {
     next();
   } else {
-    if (req.files && req.files.length > 0) {
-      const { filename } = req.files[0];
-      const filePath = path.join(
-        __dirname,
-        `../../assets/userAvatars/${filename}`
-      );
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-        console.log(`${filePath} was deleted`);
-      });
-    }
+    // Note: With Cloudinary, files are in memory and don't need to be deleted
+    // The file buffer is automatically garbage collected if validation fails
+    // If we had uploaded to Cloudinary before validation, we would delete it here
+    // but since validation happens before upload, no cleanup needed
     res
       .status(400)
       .json({ errors: Object.values(mappedErrors).map((error) => error.msg) });

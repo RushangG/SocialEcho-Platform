@@ -189,3 +189,171 @@ export const removeModeratorAction =
       });
     }
   };
+
+export const createAdminAction = (adminData) => async (dispatch) => {
+  try {
+    const { error, data } = await api.createAdmin(adminData);
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.CREATE_ADMIN_SUCCESS,
+      payload: data,
+    });
+    return { success: true, data };
+  } catch (error) {
+    dispatch({
+      type: types.CREATE_ADMIN_FAIL,
+      payload: error.message,
+    });
+    return { success: false, error: error.message };
+  }
+};
+
+export const addCommunitiesAction = (formData) => async (dispatch) => {
+  try {
+    const { error, data } = await api.addCommunities(formData);
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.ADD_COMMUNITIES_SUCCESS,
+      payload: data,
+    });
+    // Refresh communities list
+    dispatch(getCommunitiesAction());
+    return { success: true, data };
+  } catch (error) {
+    dispatch({
+      type: types.ADD_COMMUNITIES_FAIL,
+      payload: error.message,
+    });
+    return { success: false, error: error.message };
+  }
+};
+
+export const getRulesAction = () => async (dispatch) => {
+  try {
+    const { error, data } = await api.getRules();
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.GET_RULES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_RULES_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+export const addRulesAction = (rulesData) => async (dispatch) => {
+  try {
+    const { error, data } = await api.addRules(rulesData);
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.ADD_RULES_SUCCESS,
+      payload: data,
+    });
+    // Refresh rules list
+    dispatch(getRulesAction());
+    return { success: true, data };
+  } catch (error) {
+    dispatch({
+      type: types.ADD_RULES_FAIL,
+      payload: error.message,
+    });
+    return { success: false, error: error.message };
+  }
+};
+
+export const addRulesToCommunityAction =
+  (communityId, rulesData) => async (dispatch) => {
+    try {
+      const { error, data } = await api.addRulesToCommunity(
+        communityId,
+        rulesData
+      );
+      if (error) {
+        throw new Error(error);
+      }
+      dispatch({
+        type: types.ADD_RULES_TO_COMMUNITY_SUCCESS,
+        payload: data,
+      });
+      return { success: true, data };
+    } catch (error) {
+      dispatch({
+        type: types.ADD_RULES_TO_COMMUNITY_FAIL,
+        payload: error.message,
+      });
+      return { success: false, error: error.message };
+    }
+  };
+
+export const createModeratorAction = (moderatorData) => async (dispatch) => {
+  try {
+    const { error, data } = await api.createModerator(moderatorData);
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.CREATE_MODERATOR_SUCCESS,
+      payload: data,
+    });
+    // Refresh users list
+    dispatch(getAllUsersAction());
+    return { success: true, data };
+  } catch (error) {
+    dispatch({
+      type: types.CREATE_MODERATOR_FAIL,
+      payload: error.message,
+    });
+    return { success: false, error: error.message };
+  }
+};
+
+export const getAllUsersAction = (params = {}) => async (dispatch) => {
+  try {
+    const { error, data } = await api.getAllUsers(params);
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.GET_ALL_USERS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_ALL_USERS_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+export const updateUserRoleAction = (userId, role) => async (dispatch) => {
+  try {
+    const { error, data } = await api.updateUserRole(userId, role);
+    if (error) {
+      throw new Error(error);
+    }
+    dispatch({
+      type: types.UPDATE_USER_ROLE_SUCCESS,
+      payload: data,
+    });
+    // Refresh users list
+    dispatch(getAllUsersAction());
+    return { success: true, data };
+  } catch (error) {
+    dispatch({
+      type: types.UPDATE_USER_ROLE_FAIL,
+      payload: error.message,
+    });
+    return { success: false, error: error.message };
+  }
+};
