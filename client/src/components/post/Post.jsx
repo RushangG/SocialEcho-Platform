@@ -25,37 +25,37 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="border rounded bg-white p-4 m-2 hover:shadow-lg duration-300">
+    <article className="rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img
-            className="rounded-full overflow-hidden w-12 h-12 object-cover"
+            className="h-12 w-12 rounded-full object-cover ring-2 ring-slate-100"
             src={user.avatar}
             alt="user avatar"
             loading="lazy"
           />
           <div className="flex flex-col">
             {userData._id === user._id ? (
-              <Link to="/profile" className="font-semibold text-lg capitalize">
+              <Link to="/profile" className="text-base font-semibold capitalize text-slate-900 hover:underline">
                 {user.name}
               </Link>
             ) : (
               <Link
                 to={`/user/${user._id}`}
-                className="font-semibold text-lg capitalize"
+                className="text-base font-semibold capitalize text-slate-900 hover:underline"
               >
                 {user.name}
               </Link>
             )}
             <Link
               to={`/community/${community.name}`}
-              className="text-sm text-gray-500"
+              className="text-xs text-slate-500 hover:text-primary"
             >
               {community.name}
             </Link>
           </div>
         </div>
-        <p className="text-sm text-gray-500">{createdAt}</p>
+        <p className="text-xs text-slate-500">{createdAt}</p>
       </div>
       <div>
         <p
@@ -64,7 +64,7 @@ const Post = ({ post }) => {
               state: { from: location.pathname },
             });
           }}
-          className="my-2 cursor-pointer break-words"
+          className="my-3 cursor-pointer break-words text-sm leading-relaxed text-slate-800"
         >
           {content}
         </p>
@@ -85,7 +85,7 @@ const Post = ({ post }) => {
                     src={fileUrl}
                     alt={content}
                     loading="lazy"
-                    className="cursor-pointer object-cover rounded-md"
+                    className="cursor-pointer rounded-xl object-cover ring-1 ring-slate-200"
                   />
                 </div>
               </PhotoView>
@@ -94,7 +94,7 @@ const Post = ({ post }) => {
             fileUrl && (
               <div className="w-full aspect-w-16 aspect-h-9">
                 <video
-                  className="block mx-auto rounded-md focus:outline-none"
+                  className="block mx-auto rounded-xl ring-1 ring-slate-200 focus:outline-none"
                   src={fileUrl}
                   controls
                 />
@@ -103,20 +103,20 @@ const Post = ({ post }) => {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-between mt-4">
+      <div className="mt-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Like post={post} />
 
           <button
-            className="flex items-center text-lg gap-1"
+            className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
             onClick={() => {
               navigate(`/post/${post._id}`, {
                 state: { from: location.pathname },
               });
             }}
           >
-            <HiOutlineChatBubbleOvalLeft className="text-2xl" />
-            {comments.length}
+            <HiOutlineChatBubbleOvalLeft className="text-xl" />
+            <span className="text-sm">{comments.length}</span>
           </button>
         </div>
         <div className="flex items-center gap-2">
@@ -124,9 +124,9 @@ const Post = ({ post }) => {
             <Tooltip text="Delete post">
               <button
                 onClick={() => toggleModal(true)}
-                className="text-red-500 text-2xl"
+                className="inline-flex items-center justify-center rounded-lg p-2 text-red-500 transition hover:bg-red-50"
               >
-                <HiOutlineArchiveBox />
+                <HiOutlineArchiveBox className="text-xl" />
               </button>
             </Tooltip>
           )}
@@ -141,7 +141,7 @@ const Post = ({ post }) => {
           prevPath={location.pathname}
         />
       )}
-    </div>
+    </article>
   );
 };
 

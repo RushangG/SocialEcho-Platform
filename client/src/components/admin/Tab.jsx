@@ -6,6 +6,8 @@ import ButtonLoadingSpinner from "../loader/ButtonLoadingSpinner";
 import { BiLogOut } from "react-icons/bi";
 import { BsPeople, BsWindowStack } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
+// import { FaUserPlus } from "react-icons/fa"; // Hidden - admin is pre-configured
+import { FaUsers, FaGavel, FaLink, FaUserShield } from "react-icons/fa";
 
 const Tab = ({ activeTab, handleTabClick }) => {
   const navigate = useNavigate();
@@ -60,6 +62,72 @@ const Tab = ({ activeTab, handleTabClick }) => {
           >
             <BsPeople className="mr-1" />
             Community Management
+          </span>
+        </li>
+        {/* Create Admin tab hidden - admin is pre-configured */}
+        {/* <li className="mr-2 flex items-center">
+          <span
+            className={`cursor-pointer inline-flex items-center px-2 py-2 border-b-2 rounded-t-lg ${
+              activeTab === "Create Admin"
+                ? "border-blue-500 bg-primary rounded-md text-white"
+                : "border-transparent hover:text-gray-600 hover:border-gray-300"
+            }`}
+            onClick={() => handleTabClick("Create Admin")}
+          >
+            <FaUserPlus className="mr-1" />
+            Create Admin
+          </span>
+        </li> */}
+        <li className="mr-2 flex items-center">
+          <span
+            className={`cursor-pointer inline-flex items-center px-2 py-2 border-b-2 rounded-t-lg ${
+              activeTab === "Add Communities"
+                ? "border-blue-500 bg-primary rounded-md text-white"
+                : "border-transparent hover:text-gray-600 hover:border-gray-300"
+            }`}
+            onClick={() => handleTabClick("Add Communities")}
+          >
+            <FaUsers className="mr-1" />
+            Add Communities
+          </span>
+        </li>
+        <li className="mr-2 flex items-center">
+          <span
+            className={`cursor-pointer inline-flex items-center px-2 py-2 border-b-2 rounded-t-lg ${
+              activeTab === "Add Rules"
+                ? "border-blue-500 bg-primary rounded-md text-white"
+                : "border-transparent hover:text-gray-600 hover:border-gray-300"
+            }`}
+            onClick={() => handleTabClick("Add Rules")}
+          >
+            <FaGavel className="mr-1" />
+            Add Rules
+          </span>
+        </li>
+        <li className="mr-2 flex items-center">
+          <span
+            className={`cursor-pointer inline-flex items-center px-2 py-2 border-b-2 rounded-t-lg ${
+              activeTab === "Add Rules to Community"
+                ? "border-blue-500 bg-primary rounded-md text-white"
+                : "border-transparent hover:text-gray-600 hover:border-gray-300"
+            }`}
+            onClick={() => handleTabClick("Add Rules to Community")}
+          >
+            <FaLink className="mr-1" />
+            Add Rules to Community
+          </span>
+        </li>
+        <li className="mr-2 flex items-center">
+          <span
+            className={`cursor-pointer inline-flex items-center px-2 py-2 border-b-2 rounded-t-lg ${
+              activeTab === "Manage Moderators"
+                ? "border-blue-500 bg-primary rounded-md text-white"
+                : "border-transparent hover:text-gray-600 hover:border-gray-300"
+            }`}
+            onClick={() => handleTabClick("Manage Moderators")}
+          >
+            <FaUserShield className="mr-1" />
+            Manage Moderators
           </span>
         </li>
         <li className="mr-2 flex items-center">

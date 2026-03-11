@@ -89,3 +89,82 @@ export const removeModerator = async (communityId, moderatorId) => {
     return handleApiError(error);
   }
 };
+
+export const createAdmin = async (adminData) => {
+  try {
+    const res = await ADMIN_API.post("/create-admin", adminData);
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const addCommunities = async (formData) => {
+  try {
+    const res = await ADMIN_API.post("/communities", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const getRules = async () => {
+  try {
+    const res = await ADMIN_API.get("/rules");
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const addRules = async (rulesData) => {
+  try {
+    const res = await ADMIN_API.post("/rules", rulesData);
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const addRulesToCommunity = async (communityId, rulesData) => {
+  try {
+    const res = await ADMIN_API.post(
+      `/communities/${communityId}/rules`,
+      rulesData
+    );
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const createModerator = async (moderatorData) => {
+  try {
+    const res = await ADMIN_API.post("/create-moderator", moderatorData);
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const getAllUsers = async (params = {}) => {
+  try {
+    const res = await ADMIN_API.get("/users", { params });
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const updateUserRole = async (userId, role) => {
+  try {
+    const res = await ADMIN_API.patch(`/users/${userId}/role`, { role });
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

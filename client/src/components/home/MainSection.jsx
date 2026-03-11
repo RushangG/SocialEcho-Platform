@@ -12,7 +12,7 @@ const MemoizedPost = memo(Post);
 
 const LoadMoreButton = ({ onClick, isLoading }) => (
   <button
-    className="bg-primary hover:bg-blue-700 text-sm text-white font-semibold rounded-md w-full p-2 my-3"
+    className="my-4 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-70"
     onClick={onClick}
     disabled={isLoading}
   >
@@ -61,7 +61,7 @@ const MainSection = ({ userData }) => {
   }
   return (
     <>
-      <div>{memoizedPosts}</div>
+      <div className="space-y-4">{memoizedPosts}</div>
 
       {posts.length > 0 && posts.length < totalPosts && (
         <LoadMoreButton
@@ -71,11 +71,14 @@ const MainSection = ({ userData }) => {
       )}
 
       {posts.length === 0 && (
-        <div className="text-center text-gray-700 flex justify-center items-center flex-col">
-          <p className="py-5 font-semibold">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white/95 p-6 text-center shadow-sm">
+          <p className="py-2 text-sm font-semibold text-slate-800">
             No posts to show. Join a community and post something.
           </p>
-          <img loading="lazy" src={Home} alt="no post" />
+          <p className="mb-4 text-xs text-slate-500">
+            Your feed will appear here once you join communities.
+          </p>
+          <img loading="lazy" src={Home} alt="no post" className="max-w-sm rounded-xl border border-slate-200" />
         </div>
       )}
     </>

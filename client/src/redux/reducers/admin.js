@@ -6,6 +6,8 @@ const initialState = {
   communities: null,
   community: null,
   moderators: null,
+  rules: null,
+  users: null,
   adminPanelError: null,
   signInError: null,
 };
@@ -141,6 +143,90 @@ const adminReducer = (state = initialState, action) => {
         adminPanelError: null,
       };
     case types.REMOVE_MODERATOR_FAIL:
+      return {
+        ...state,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.CREATE_ADMIN_SUCCESS:
+      return {
+        ...state,
+        adminPanelError: null,
+      };
+    case types.CREATE_ADMIN_FAIL:
+      return {
+        ...state,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.ADD_COMMUNITIES_SUCCESS:
+      return {
+        ...state,
+        adminPanelError: null,
+      };
+    case types.ADD_COMMUNITIES_FAIL:
+      return {
+        ...state,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.GET_RULES_SUCCESS:
+      return {
+        ...state,
+        rules: payload ? payload : null,
+        adminPanelError: null,
+      };
+    case types.GET_RULES_FAIL:
+      return {
+        ...state,
+        rules: null,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.ADD_RULES_SUCCESS:
+      return {
+        ...state,
+        adminPanelError: null,
+      };
+    case types.ADD_RULES_FAIL:
+      return {
+        ...state,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.ADD_RULES_TO_COMMUNITY_SUCCESS:
+      return {
+        ...state,
+        adminPanelError: null,
+      };
+    case types.ADD_RULES_TO_COMMUNITY_FAIL:
+      return {
+        ...state,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.CREATE_MODERATOR_SUCCESS:
+      return {
+        ...state,
+        adminPanelError: null,
+      };
+    case types.CREATE_MODERATOR_FAIL:
+      return {
+        ...state,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.GET_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        users: payload ? payload : null,
+        adminPanelError: null,
+      };
+    case types.GET_ALL_USERS_FAIL:
+      return {
+        ...state,
+        users: null,
+        adminPanelError: payload ? payload : null,
+      };
+    case types.UPDATE_USER_ROLE_SUCCESS:
+      return {
+        ...state,
+        adminPanelError: null,
+      };
+    case types.UPDATE_USER_ROLE_FAIL:
       return {
         ...state,
         adminPanelError: payload ? payload : null,

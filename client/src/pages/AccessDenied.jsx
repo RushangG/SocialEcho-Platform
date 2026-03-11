@@ -2,39 +2,31 @@ import { Link } from "react-router-dom";
 
 const AccessDenied = () => {
   return (
-    <section className="bg-white">
-      <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
-        <div className="flex flex-col items-center max-w-sm mx-auto text-center">
-          <p className="p-3 text-sm font-medium text-blue-500 rounded-full bg-blue-50">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4 py-10">
+      <div className="mx-auto flex min-h-[70vh] w-full max-w-lg items-center justify-center">
+        <div className="w-full rounded-2xl bg-white/95 p-6 text-center shadow-lg ring-1 ring-slate-200 backdrop-blur-sm sm:p-8">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m0 3.75h.008v.008H12v-.008zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-          </p>
-          <h1 className="mt-3 text-2xl font-semibold text-gray-800">
-            Access Denied
+          </div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">
+            Access denied
           </h1>
-          <p className="mt-4 text-gray-500">
-            You do not have permission to access this page.
+          <p className="mt-2 text-sm text-slate-600">
+            You don’t have permission to view this page.
           </p>
-          <div className="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
-            <button className="w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto hover:bg-blue-600">
-              <Link to="/">Take me home</Link>
-            </button>
+          <div className="mt-6 flex w-full justify-center">
+            <Link
+              to="/"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 sm:w-auto"
+            >
+              Back to Home
+            </Link>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

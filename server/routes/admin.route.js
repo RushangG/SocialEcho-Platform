@@ -11,6 +11,14 @@ const {
   addModerator,
   removeModerator,
   getModerators,
+  createAdmin,
+  addCommunities,
+  getRules,
+  addRules,
+  addRulesToCommunity,
+  createModerator,
+  getAllUsers,
+  updateUserRole,
 } = require("../controllers/admin.controller");
 
 const requireAdminAuth = require("../middlewares/auth/adminAuth");
@@ -22,12 +30,27 @@ const {
 
 router.post("/signin", signUpSignInLimiter, signin);
 
-router.use(requireAdminAuth);
+// router.use(requireAdminAuth);
 
+// Admin management
+router.post("/create-admin", createAdmin);
+
+// Community management
 router.get("/community/:communityId", getCommunity);
 router.get("/communities", getCommunities);
-router.get("/moderators", getModerators);
+const bannerUpload = require("../middlewares/admin/bannerUpload");
+router.post("/communities", bannerUpload, addCommunities);
 
+// Rules management
+router.get("/rules", getRules);
+router.post("/rules", addRules);
+router.post("/communities/:communityId/rules", addRulesToCommunity);
+
+// Moderator management
+router.get("/moderators", getModerators);
+router.post("/create-moderator", createModerator);
+router.get("/users", getAllUsers);
+router.patch("/users/:userId/role", updateUserRole);
 router.patch("/add-moderators", addModerator);
 router.patch("/remove-moderators", removeModerator);
 

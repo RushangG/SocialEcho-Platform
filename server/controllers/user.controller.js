@@ -274,9 +274,8 @@ const getUser = async (req, res, next) => {
 /**
  * Adds a new user to the database with the given name, email, password, and avatar.
  *
- * @description If the email domain of the user's email is "mod.socialecho.com", the user will be
- * assigned the role of "moderator" by default, but not necessarily as a moderator of any community.
- * Otherwise, the user will be assigned the role of "general" user.
+ * @description All users sign up as "general" role by default.
+ * Admins can promote users to moderator role through the admin panel.
  *
  * @param {Object} req.files - The files attached to the request object (for avatar).
  * @param {string} req.body.isConsentGiven - Indicates whether the user has given consent to enable context based auth.
@@ -292,14 +291,12 @@ const addUser = async (req, res, next) => {
 
   const defaultAvatar =
     "https://raw.githubusercontent.com/nz-m/public-files/main/dp.jpg";
-  const fileUrl = req.files?.[0]?.filename
-    ? `${req.protocol}://${req.get("host")}/assets/userAvatars/${
-        req.files[0].filename
-      }`
-    : defaultAvatar;
+  // Use Cloudinary URL if available (from avatarUpload middleware), otherwise use default
+  const fileUrl = req.avatarUrl || defaultAvatar;
 
-  const emailDomain = req.body.email.split("@")[1];
-  const role = emailDomain === "mod.socialecho.com" ? "moderator" : "general";
+  // All users sign up as "general" role by default
+  // Admins can promote users to moderator role through admin panel
+  const role = "general";
 
   newUser = new User({
     name: req.body.name,

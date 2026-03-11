@@ -64,46 +64,48 @@ const PostView = ({ post, userData }) => {
   }
 
   return (
-    <div className="main-section border p-5 bg-white rounded-lg shadow-md">
-      <p className="border border-dashed border-primary cursor-pointer px-2 py-2 w-7 h-7 flex justify-center items-center mb-3 rounded-full">
-        <IoIosArrowBack
-          className="text-primary text-lg font-semibold"
-          onClick={() => navigate(location.state?.from || "/")}
-        />
-      </p>
+    <div className="main-section">
+      <button
+        type="button"
+        onClick={() => navigate(location.state?.from || "/")}
+        className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-50"
+        aria-label="Go back"
+      >
+        <IoIosArrowBack className="text-lg text-primary" />
+      </button>
 
-      <div className="flex justify-between items-center mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img
-            className="rounded-full overflow-hidden w-12 h-12 object-cover"
+            className="h-12 w-12 rounded-full object-cover ring-2 ring-slate-100"
             src={user.avatar}
             alt="user avatar"
             loading="lazy"
           />
           <div className="flex flex-col">
             {userData._id === user._id ? (
-              <Link to="/profile" className="text-lg font-semibold">
+              <Link to="/profile" className="text-base font-semibold text-slate-900 hover:underline">
                 {user.name}
               </Link>
             ) : (
-              <Link to={`/user/${user._id}`} className="text-lg font-semibold">
+              <Link to={`/user/${user._id}`} className="text-base font-semibold text-slate-900 hover:underline">
                 {user.name}
               </Link>
             )}
             <Link
               to={`/community/${community.name}`}
-              className="text-xs text-gray-500"
+              className="text-xs text-slate-500 hover:text-primary"
             >
               {community.name}
             </Link>
           </div>
         </div>
 
-        <span className="text-gray-500 text-sm self-center">{dateTime}</span>
+        <span className="self-center text-xs text-slate-500">{dateTime}</span>
       </div>
 
       <div className="mb-4">
-        <p className="my-2">{content}</p>
+        <p className="my-3 text-sm leading-relaxed text-slate-800">{content}</p>
         <div className="flex justify-center">
           {fileUrl && fileType === "image" ? (
             <PhotoProvider
@@ -121,7 +123,7 @@ const PostView = ({ post, userData }) => {
                     src={fileUrl}
                     alt={content}
                     loading="lazy"
-                    className="cursor-pointer object-cover rounded-md"
+                    className="cursor-pointer rounded-xl object-cover ring-1 ring-slate-200"
                   />
                 </div>
               </PhotoView>
@@ -130,7 +132,7 @@ const PostView = ({ post, userData }) => {
             fileUrl && (
               <div className="w-full aspect-w-16 aspect-h-9">
                 <video
-                  className="block mx-auto rounded-md focus:outline-none"
+                  className="mx-auto block rounded-xl ring-1 ring-slate-200 focus:outline-none"
                   src={fileUrl}
                   controls
                 />
@@ -140,32 +142,35 @@ const PostView = ({ post, userData }) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-4">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-4">
           <Like post={post} />
-          <button className="flex items-center space-x-1">
-            <HiOutlineChatBubbleOvalLeft className="text-2xl" />
-            <span className="text-lg">{comments.length}</span>
+          <button className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium text-slate-700 transition hover:bg-slate-100">
+            <HiOutlineChatBubbleOvalLeft className="text-xl" />
+            <span className="text-sm">{comments.length}</span>
           </button>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <Save postId={post._id} />
           <Tooltip text="Saved by" className="items-center">
-            <div className="flex items-center">
-              <HiOutlineArchiveBox className="text-2xl" />
-              {savedByCount}
+            <div className="flex items-center gap-1 rounded-lg px-2 py-1 text-xs text-slate-600">
+              <HiOutlineArchiveBox className="text-lg" />
+              <span>{savedByCount}</span>
             </div>
           </Tooltip>
           {isReportedPost ? (
             <Tooltip text="Reported" className="items-center">
-              <button disabled className="text-green-500">
-                <VscReport className="text-2xl" />
+              <button disabled className="inline-flex items-center justify-center rounded-lg p-2 text-emerald-600">
+                <VscReport className="text-xl" />
               </button>
             </Tooltip>
           ) : (
             <Tooltip text="Report">
-              <button onClick={handleReportClick}>
-                <VscReport className="text-2xl" />
+              <button
+                onClick={handleReportClick}
+                className="inline-flex items-center justify-center rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 hover:text-red-500"
+              >
+                <VscReport className="text-xl" />
               </button>
             </Tooltip>
           )}
@@ -173,9 +178,9 @@ const PostView = ({ post, userData }) => {
             <Tooltip text="Delete">
               <button
                 onClick={() => toggleModal(true)}
-                className="text-red-500"
+                className="inline-flex items-center justify-center rounded-lg p-2 text-red-500 transition hover:bg-red-50"
               >
-                <HiOutlineArchiveBox className="text-2xl" />
+                <HiOutlineArchiveBox className="text-xl" />
               </button>
             </Tooltip>
           )}

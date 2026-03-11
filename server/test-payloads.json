@@ -1,0 +1,179 @@
+{
+  "adminSignIn": {
+    "endpoint": "POST /admin/signin",
+    "payload": {
+      "username": "admin",
+      "password": "admin123"
+    }
+  },
+  "createAdmin": {
+    "endpoint": "POST /admin/create-admin",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "username": "newadmin",
+      "password": "password123"
+    }
+  },
+  "addCommunitiesDefault": {
+    "endpoint": "POST /admin/communities",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "useDefaultData": true
+    }
+  },
+  "addSingleCommunityWithFile": {
+    "endpoint": "POST /admin/communities",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "contentType": "multipart/form-data",
+    "formData": {
+      "name": "Gaming",
+      "description": "A community for gamers to discuss games, strategies, and gaming news.",
+      "banner": "[FILE] - Select image file (JPEG, PNG, GIF, WebP, max 10MB)"
+    },
+    "note": "Use form-data in Postman/Thunder Client. The banner field should be a file upload."
+  },
+  "addSingleCommunity": {
+    "endpoint": "POST /admin/communities",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json"
+    },
+    "payload": {
+      "communities": {
+        "name": "Gaming",
+        "description": "A community for gamers to discuss games, strategies, and gaming news.",
+        "banner": "https://example.com/gaming-banner.jpg"
+      }
+    },
+    "note": "Use this if you already have a banner URL"
+  },
+  "addMultipleCommunities": {
+    "endpoint": "POST /admin/communities",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "communities": [
+        {
+          "name": "Photography",
+          "description": "A community for photography enthusiasts to share tips and showcase their work.",
+          "banner": "https://example.com/photography-banner.jpg"
+        },
+        {
+          "name": "Technology",
+          "description": "A community for tech enthusiasts to discuss the latest in technology.",
+          "banner": "https://example.com/technology-banner.jpg"
+        }
+      ]
+    }
+  },
+  "getRules": {
+    "endpoint": "GET /admin/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": null
+  },
+  "addRulesDefault": {
+    "endpoint": "POST /admin/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "useDefaultData": true
+    }
+  },
+  "addSingleRule": {
+    "endpoint": "POST /admin/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "rules": {
+        "rule": "No fake news",
+        "description": "Sharing false or misleading information is prohibited."
+      }
+    }
+  },
+  "addMultipleRules": {
+    "endpoint": "POST /admin/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "rules": [
+        {
+          "rule": "No spam",
+          "description": "Repeated posting of the same content is not allowed."
+        },
+        {
+          "rule": "Respect others",
+          "description": "Be respectful to other community members."
+        }
+      ]
+    }
+  },
+  "addAllRulesToCommunity": {
+    "endpoint": "POST /admin/communities/:communityId/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "useAllRules": true
+    },
+    "note": "Replace :communityId with actual community ID"
+  },
+  "addSpecificRulesToCommunity": {
+    "endpoint": "POST /admin/communities/:communityId/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "ruleIds": [
+        "507f1f77bcf86cd799439015",
+        "507f1f77bcf86cd799439016",
+        "507f1f77bcf86cd799439017"
+      ]
+    },
+    "note": "Replace :communityId with actual community ID and ruleIds with actual rule IDs"
+  },
+  "addAllRulesToAllCommunities": {
+    "endpoint": "POST /admin/communities/all/rules",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": {
+      "useAllRules": true
+    }
+  },
+  "getModerators": {
+    "endpoint": "GET /admin/moderators",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": null
+  },
+  "addModerator": {
+    "endpoint": "PATCH /admin/add-moderators?communityId=COMMUNITY_ID&moderatorId=MODERATOR_ID",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": null,
+    "note": "Replace COMMUNITY_ID and MODERATOR_ID with actual IDs"
+  },
+  "removeModerator": {
+    "endpoint": "PATCH /admin/remove-moderators?communityId=COMMUNITY_ID&moderatorId=MODERATOR_ID",
+    "headers": {
+      "Authorization": "Bearer YOUR_ACCESS_TOKEN"
+    },
+    "payload": null,
+    "note": "Replace COMMUNITY_ID and MODERATOR_ID with actual IDs"
+  }
+}
+

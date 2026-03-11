@@ -7,6 +7,7 @@ import {
   removeModeratorAction,
   getCommunityAction,
 } from "../../redux/actions/adminActions";
+import placeholderImage from "../../assets/placeholder.png";
 
 const CommunityManagement = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,13 @@ const CommunityManagement = () => {
   const [newModerator, setNewModerator] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const [isChangingCommunity, setIsChangingCommunity] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await dispatch(getCommunitiesAction());
+    setRefreshing(false);
+  };
 
   const handleCommunitySelect = async (community) => {
     setSelectedCommunity(community);
@@ -68,9 +76,17 @@ const CommunityManagement = () => {
     <div className="flex gap-2 h-[85vh] w-full mt-3 border rounded-md">
       {/* Left column */}
       <div className="flex flex-col w-full bg-white shadow-inner rounded-md border-r">
-        <h1 className="text-lg font-bold p-4 text-center border-b-2">
-          Communities
-        </h1>
+        <div className="flex items-center justify-between p-4 border-b-2">
+          <h1 className="text-lg font-bold">Communities</h1>
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="text-sm px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+            title="Refresh communities list"
+          >
+            {refreshing ? "Refreshing..." : "Refresh"}
+          </button>
+        </div>
         <div className="flex flex-col overflow-y-auto">
           {communities.map((community) => (
             <div
@@ -81,9 +97,13 @@ const CommunityManagement = () => {
               onClick={() => handleCommunitySelect(community)}
             >
               <img
-                src={community.banner}
+                src={community.banner || placeholderImage}
                 alt={community.name}
-                className="w-10 h-10 rounded-full mr-2 md:mr-4"
+                className="w-10 h-10 rounded-full mr-2 md:mr-4 object-cover border border-gray-200"
+                onError={(e) => {
+                  e.target.onerror = null; // Prevent infinite loop
+                  e.target.src = placeholderImage;
+                }}
               />
               <span className="text-gray-700 text-xs md:text-base">
                 {community.name}
