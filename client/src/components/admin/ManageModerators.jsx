@@ -106,20 +106,20 @@ const ManageModerators = () => {
   const filteredUsers = users;
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <div className="flex items-center gap-2 mb-6">
-        <FaUserShield className="text-2xl text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-800">Manage Moderators</h2>
+    <div className="admin-content-card">
+      <div className="admin-header-row">
+        <FaUserShield className="admin-header-icon" />
+        <h2 className="admin-page-title">Manage Moderators</h2>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b mb-6">
+      <div className="flex border-b mb-6 gap-2">
         <button
           onClick={() => setActiveTab("create")}
-          className={`px-4 py-2 font-medium ${
+          className={`admin-btn-neutral ${
             activeTab === "create"
-              ? "border-b-2 border-blue-500 text-blue-600"
-              : "text-gray-500 hover:text-gray-700"
+              ? "admin-tab-item-active"
+              : ""
           }`}
         >
           <FaUserPlus className="inline mr-2" />
@@ -127,10 +127,10 @@ const ManageModerators = () => {
         </button>
         <button
           onClick={() => setActiveTab("manage")}
-          className={`px-4 py-2 font-medium ${
+          className={`admin-btn-neutral ${
             activeTab === "manage"
-              ? "border-b-2 border-blue-500 text-blue-600"
-              : "text-gray-500 hover:text-gray-700"
+              ? "admin-tab-item-active"
+              : ""
           }`}
         >
           <FaUserShield className="inline mr-2" />
@@ -140,10 +140,10 @@ const ManageModerators = () => {
 
       {message.text && (
         <div
-          className={`p-4 mb-4 rounded-lg ${
+          className={`admin-message mb-4 ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-300"
-              : "bg-red-100 text-red-800 border border-red-300"
+              ? "admin-message-success"
+              : "admin-message-error"
           }`}
         >
           {message.text}
@@ -155,7 +155,7 @@ const ManageModerators = () => {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="admin-field-label"
             >
               Name *
             </label>
@@ -168,7 +168,7 @@ const ManageModerators = () => {
               required
               minLength={2}
               maxLength={20}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="admin-input"
               placeholder="Enter moderator name"
             />
           </div>
@@ -176,7 +176,7 @@ const ManageModerators = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="admin-field-label"
             >
               Email *
             </label>
@@ -187,7 +187,7 @@ const ManageModerators = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="admin-input"
               placeholder="Enter email address"
             />
           </div>
@@ -195,7 +195,7 @@ const ManageModerators = () => {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="admin-field-label"
             >
               Password *
             </label>
@@ -207,7 +207,7 @@ const ManageModerators = () => {
               onChange={handleChange}
               required
               minLength={6}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="admin-input"
               placeholder="Enter password (min 6 characters)"
             />
           </div>
@@ -215,11 +215,7 @@ const ManageModerators = () => {
           <button
             type="submit"
             disabled={loading || !formData.name || !formData.email || !formData.password}
-            className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-colors ${
-              loading || !formData.name || !formData.email || !formData.password
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
-            }`}
+            className="admin-btn-primary w-full py-3"
           >
             {loading ? (
               <ButtonLoadingSpinner loadingText="Creating moderator..." />
@@ -241,13 +237,13 @@ const ManageModerators = () => {
                 placeholder="Search by name or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="admin-input pl-10 pr-4"
               />
             </div>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="admin-select"
             >
               <option value="all">All Roles</option>
               <option value="general">General Users</option>
@@ -259,29 +255,29 @@ const ManageModerators = () => {
           {loadingUsers ? (
             <div className="text-center py-8">Loading users...</div>
           ) : filteredUsers && filteredUsers.length > 0 ? (
-            <div className="border rounded-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50">
+            <div className="admin-table-wrap">
+              <div className="admin-table-scroll">
+                <table className="admin-table">
+                  <thead>
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th>
                         User
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th>
                         Email
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th>
                         Role
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th>
                         Actions
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody>
                     {filteredUsers.map((user) => (
-                      <tr key={user._id} className="hover:bg-gray-50">
-                        <td className="px-4 py-3 whitespace-nowrap">
+                      <tr key={user._id}>
+                        <td>
                           <div className="flex items-center">
                             {user.avatar ? (
                               <img
@@ -305,30 +301,30 @@ const ManageModerators = () => {
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                        <td className="text-sm text-gray-500">
                           {user.email}
                         </td>
-                        <td className="px-4 py-3 whitespace-nowrap">
+                        <td>
                           <span
-                            className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                            className={`admin-tag ${
                               user.role === "moderator"
-                                ? "bg-blue-100 text-blue-800"
+                                ? "admin-tag-info"
                                 : user.role === "admin"
-                                ? "bg-purple-100 text-purple-800"
-                                : "bg-gray-100 text-gray-800"
+                                ? "admin-tag-warn"
+                                : "admin-tag-muted"
                             }`}
                           >
                             {user.role}
                           </span>
                         </td>
-                        <td className="px-4 py-3 whitespace-nowrap text-sm">
+                        <td className="text-sm">
                           {user.role === "admin" ? (
                             <span className="text-gray-400">Cannot change</span>
                           ) : user.role === "moderator" ? (
                             <button
                               onClick={() => handleRoleUpdate(user._id, "general")}
                               disabled={loading}
-                              className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="admin-btn-danger"
                             >
                               Demote to General
                             </button>
@@ -336,7 +332,7 @@ const ManageModerators = () => {
                             <button
                               onClick={() => handleRoleUpdate(user._id, "moderator")}
                               disabled={loading}
-                              className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="admin-btn-primary"
                             >
                               Promote to Moderator
                             </button>

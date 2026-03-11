@@ -59,26 +59,26 @@ const Settings = () => {
   };
 
   if (isLoading || !servicePreferences) {
-    return <div>Loading...</div>;
+    return <div className="admin-content-card">Loading...</div>;
   }
 
   return (
-    <div className="p-5 w-full border rounded-md bg-white mt-3">
-      <h2 className="font-semibold mb-4 border-b pb-2 text-center text-gray-700">
+    <div className="admin-content-card">
+      <h2 className="admin-page-title mb-4 border-b pb-2 text-center">
         Service Preferences
       </h2>
 
       {isSuccess && (
-        <div className="bg-green-100 text-green-800 p-2 mb-4 rounded">
+        <div className="admin-message admin-message-success mb-4">
           Service Preferences updated successfully!
         </div>
       )}
 
       <div className="flex items-center mb-4">
-        <div>Use Perspective API for content moderation</div>
+        <div className="admin-muted-copy">Use Perspective API for content moderation</div>
         <div className="ml-auto">
           <input
-            className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="admin-checkbox"
             type="checkbox"
             checked={usePerspectiveAPI}
             onChange={(e) => setUsePerspectiveAPI(e.target.checked)}
@@ -87,10 +87,10 @@ const Settings = () => {
       </div>
 
       <div className="flex items-center mb-4">
-        <div>Category filtering service provider</div>
+        <div className="admin-muted-copy">Category filtering service provider</div>
         <div className="ml-auto">
           <select
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            className="admin-select"
             value={categoryFilteringServiceProvider}
             onChange={(e) =>
               setCategoryFilteringServiceProvider(e.target.value)
@@ -106,10 +106,10 @@ const Settings = () => {
       </div>
 
       <div className="flex items-center mb-4">
-        <div>Category filtering request timeout (ms)</div>
+        <div className="admin-muted-copy">Category filtering request timeout (ms)</div>
         <div className="ml-auto">
           <input
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+            className="admin-input"
             type="number"
             value={categoryFilteringRequestTimeout}
             min={0}
@@ -124,7 +124,7 @@ const Settings = () => {
 
       <div className="flex justify-end">
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+          className="admin-btn-primary"
           onClick={handleUpdate}
           disabled={isUpdating}
         >

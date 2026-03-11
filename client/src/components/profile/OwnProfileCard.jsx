@@ -17,9 +17,9 @@ const OwnProfileCard = ({ user }) => {
   };
 
   return (
-    <div className="rounded-md border bg-white p-6">
+    <div className="rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm md:p-6">
       <div
-        className="flex cursor-pointer justify-end text-xl"
+        className="flex cursor-pointer justify-end text-xl text-slate-600"
         onClick={handleOpenModal}
       >
         <Tooltip text="Edit profile">
@@ -30,7 +30,7 @@ const OwnProfileCard = ({ user }) => {
         <div className="flex flex-col items-center justify-center">
           <div className="">
             <img
-              className="mr-4 h-28 w-28 rounded-full object-cover"
+              className="mr-4 h-28 w-28 rounded-full object-cover ring-2 ring-slate-100"
               src={user.avatar}
               alt="Profile"
             ></img>
@@ -43,39 +43,39 @@ const OwnProfileCard = ({ user }) => {
           </div>
 
           <div>
-            <h2 className="mt-5 text-center text-lg font-bold">{user.name}</h2>
+            <h2 className="mt-5 text-center text-lg font-bold text-slate-900">{user.name}</h2>
             {user.bio ? (
-              <p className="flex items-center justify-center gap-2 text-gray-600">
-                <GrContactInfo className="text-gray-500" />
+              <p className="flex items-center justify-center gap-2 text-slate-600">
+                <GrContactInfo className="text-slate-500" />
                 {user.bio}
               </p>
             ) : (
-              <p className="flex items-center justify-center gap-2 text-gray-400">
-                <GrContactInfo className="text-gray-500" />
+              <p className="flex items-center justify-center gap-2 text-slate-400">
+                <GrContactInfo className="text-slate-500" />
                 Bio not added
               </p>
             )}
-            <hr className="mt-3" />
+            <hr className="mt-3 border-slate-200" />
           </div>
         </div>
       </div>
       <div className="my-3 flex flex-col justify-start">
-        <p className="font-semibold">Location</p>
+        <p className="font-semibold text-slate-800">Location</p>
         {user.location ? (
-          <p className="flex items-center gap-2 text-gray-700">
+          <p className="flex items-center gap-2 text-slate-700">
             <CiLocationOn className="font-semibold" />
             {user.location}
           </p>
         ) : (
-          <p className="flex items-center gap-2 text-gray-400">
+          <p className="flex items-center gap-2 text-slate-400">
             <CiLocationOn className="text-lg font-semibold" />
             Location not added
           </p>
         )}
       </div>
 
-      <div className="mt-4 h-20 overflow-y-auto">
-        <h3 className="font-bold text-xl mb-2">Interests</h3>
+      <div className="mt-4 max-h-28 overflow-y-auto rounded-xl bg-slate-50 p-3">
+        <h3 className="mb-2 text-lg font-bold text-slate-900">Interests</h3>
         {user.interests ? (
           <div className="flex flex-wrap gap-2">
             {user.interests.split(",").map((interest, i) => (
@@ -88,16 +88,16 @@ const OwnProfileCard = ({ user }) => {
             ))}
           </div>
         ) : (
-          <p className="text-gray-600 mt-2">
+          <p className="mt-2 text-sm text-slate-600">
             No interests have been set yet. Add some interests to let people
             know more about you.
           </p>
         )}
       </div>
 
-      <span className="mt-3 flex flex-col items-center justify-center border-t">
+      <span className="mt-4 flex flex-col items-center justify-center border-t border-slate-200 pt-2">
         <Link
-          className="mt-3 cursor-pointer text-primary hover:underline"
+          className="mt-2 cursor-pointer text-sm font-semibold text-primary hover:underline"
           to="/devices-locations"
         >
           Manage Devices and Locations

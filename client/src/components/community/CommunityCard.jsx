@@ -12,17 +12,17 @@ const CommunityCard = ({ community }) => {
     }));
   };
   return (
-    <div className="px-3 py-3 rounded-md border bg-white shadow-2xl shadow-[#f2f5fc] flex justify-between">
+    <div className="flex justify-between rounded-2xl border border-slate-200 bg-white/95 px-4 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="w-full flex items-start">
         <img
-          className="object-cover rounded-full w-10 h-10 mr-4"
+          className="mr-4 h-11 w-11 rounded-full object-cover ring-2 ring-slate-100"
           src={community.banner || placeholder}
           alt="community banner"
           loading="lazy"
         />
         <div className="">
-          <h4 className="text-base font-semibold line-clamp-1">{community.name}</h4>
-          <p className="text-gray-700 ">
+          <h4 className="line-clamp-1 text-base font-semibold text-slate-900">{community.name}</h4>
+          <p className="text-sm text-slate-600">
             {community.members.length} members
           </p>
         </div>
@@ -31,7 +31,7 @@ const CommunityCard = ({ community }) => {
       <div className="">
         <button
           onClick={() => toggleJoinModal(community._id, true)}
-          className="px-2.5 py-2.5 bg-primary shadow-2xl shadow-[#F3F8FF] hover:bg-transparent group hover:border rounded-xl hover:border-primary transition duration-300"
+          className="group rounded-xl border border-primary bg-primary px-2.5 py-2.5 transition duration-300 hover:bg-transparent"
         >
           <MdOutlineGroupAdd className="text-lg text-white group-hover:text-primary" />
         </button>

@@ -17,17 +17,25 @@ const AllCommunities = () => {
 
   if (!notJoinedCommunities) {
     return (
-      <div className="main-section flex items-center justify-center">
+      <div className="user-page-shell flex items-center justify-center">
         <CommonLoading />
       </div>
     );
   }
 
   return (
-    <div className="main-section grid grid-cols-1 items-center gap-5 bg-white px-4 py-4 md:grid-cols-2 border">
-      {notJoinedCommunities?.map((community) => (
-        <CommunityCard key={community._id} community={community} />
-      ))}
+    <div className="user-page-shell">
+      <div className="user-page-head">
+        <p className="user-page-kicker">Communities</p>
+        <h1 className="user-page-title">Discover Communities</h1>
+        <p className="user-page-subtitle">Find spaces that match your interests and join new conversations.</p>
+      </div>
+
+      <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {notJoinedCommunities?.map((community) => (
+          <CommunityCard key={community._id} community={community} />
+        ))}
+      </div>
     </div>
   );
 };

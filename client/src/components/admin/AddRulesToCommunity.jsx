@@ -104,25 +104,25 @@ const AddRulesToCommunity = () => {
 
   if (loadingData) {
     return (
-      <div className="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md text-center">
+      <div className="admin-content-card text-center">
         Loading...
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <div className="flex items-center gap-2 mb-6">
-        <FaLink className="text-2xl text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-800">Add Rules to Community</h2>
+    <div className="admin-content-card">
+      <div className="admin-header-row">
+        <FaLink className="admin-header-icon" />
+        <h2 className="admin-page-title">Add Rules to Community</h2>
       </div>
 
       {message.text && (
         <div
-          className={`p-4 mb-4 rounded-lg ${
+          className={`admin-message mb-4 ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-300"
-              : "bg-red-100 text-red-800 border border-red-300"
+              ? "admin-message-success"
+              : "admin-message-error"
           }`}
         >
           {message.text}
@@ -133,7 +133,7 @@ const AddRulesToCommunity = () => {
         <div>
           <label
             htmlFor="communityId"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="admin-field-label"
           >
             Select Community *
           </label>
@@ -143,7 +143,7 @@ const AddRulesToCommunity = () => {
             value={formData.communityId}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="admin-select"
           >
             <option value="">Choose a community</option>
             {communities?.map((community) => (
@@ -161,29 +161,29 @@ const AddRulesToCommunity = () => {
             name="useAllRules"
             checked={formData.useAllRules}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            className="admin-checkbox"
           />
-          <label htmlFor="useAllRules" className="text-sm font-medium text-gray-700">
+          <label htmlFor="useAllRules" className="admin-field-label mb-0">
             Add all existing rules to this community
           </label>
         </div>
 
         {!formData.useAllRules && rules && rules.length > 0 && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="admin-field-label mb-2">
               Select Rules *
             </label>
             <div className="border rounded-lg p-4 max-h-64 overflow-y-auto space-y-2">
               {rules.map((rule) => (
                 <label
                   key={rule._id}
-                  className="flex items-start gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer"
+                  className="admin-entity-item flex items-start gap-2 cursor-pointer"
                 >
                   <input
                     type="checkbox"
                     checked={formData.ruleIds.includes(rule._id)}
                     onChange={() => handleRuleToggle(rule._id)}
-                    className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="mt-1 admin-checkbox"
                   />
                   <div className="flex-1">
                     <p className="font-medium text-sm text-gray-800">{rule.rule}</p>
@@ -203,11 +203,7 @@ const AddRulesToCommunity = () => {
         <button
           type="submit"
           disabled={loading || !formData.communityId}
-          className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-colors ${
-            loading || !formData.communityId
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          className="admin-btn-primary w-full py-3"
         >
           {loading ? (
             <ButtonLoadingSpinner loadingText="Adding rules..." />
