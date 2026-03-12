@@ -18,10 +18,10 @@ const Saved = () => {
       <div className="user-page-head">
         <p className="user-page-kicker">Library</p>
         <h1 className="user-page-title">Saved Posts</h1>
-        <p className="user-page-subtitle">Revisit posts you bookmarked for later.</p>
+        <p className="user-page-subtitle max-w-2xl">Revisit posts you bookmarked for later.</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 md:p-5">
+      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm md:p-5">
 
         {savedPosts && savedPosts.length > 0 ? (
           <div className="flex flex-col items-center gap-3 py-2">
@@ -30,11 +30,11 @@ const Saved = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center flex justify-center items-center flex-col rounded-xl bg-slate-50 py-6">
-            <p className="text-slate-500 py-5">
+          <div className="flex flex-col items-center justify-center rounded-xl bg-slate-50 py-8 text-center">
+            <p className="py-4 text-sm font-medium text-slate-500 md:text-base">
               You haven't saved any post yet.
             </p>
-            <img loading="lazy" src={NoSavedPost} alt="no post" className="rounded-xl" />
+            <img loading="lazy" src={NoSavedPost} alt="no post" className="rounded-xl border border-slate-200 shadow-sm" />
           </div>
         )}
       </div>

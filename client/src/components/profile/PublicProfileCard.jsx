@@ -17,11 +17,11 @@ const PublicProfileCard = ({ user }) => {
         <img
           src={user.avatar}
           alt="Avatar"
-          className="w-12 h-12 rounded-full object-cover"
+          className="h-12 w-12 rounded-full object-cover ring-2 ring-blue-100"
           loading="lazy"
         />
         <div>
-          <h2 className="text-base font-bold text-slate-900">{user.name}</h2>
+          <h2 className="text-base font-bold text-slate-900 md:text-lg">{user.name}</h2>
           <p className="flex items-center gap-2 text-sm text-slate-600">
             <CiLocationOn className="text-lg" />
             {user.location || "N/A"}

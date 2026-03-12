@@ -25,7 +25,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+    <article className="rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:p-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img
@@ -36,13 +36,13 @@ const Post = ({ post }) => {
           />
           <div className="flex flex-col">
             {userData._id === user._id ? (
-              <Link to="/profile" className="text-base font-semibold capitalize text-slate-900 hover:underline">
+              <Link to="/profile" className="text-base font-semibold capitalize text-slate-900 hover:underline md:text-lg">
                 {user.name}
               </Link>
             ) : (
               <Link
                 to={`/user/${user._id}`}
-                className="text-base font-semibold capitalize text-slate-900 hover:underline"
+                className="text-base font-semibold capitalize text-slate-900 hover:underline md:text-lg"
               >
                 {user.name}
               </Link>
@@ -64,7 +64,7 @@ const Post = ({ post }) => {
               state: { from: location.pathname },
             });
           }}
-          className="my-3 cursor-pointer break-words text-sm leading-relaxed text-slate-800"
+          className="my-4 cursor-pointer break-words text-[15px] leading-relaxed text-slate-800"
         >
           {content}
         </p>
@@ -103,7 +103,7 @@ const Post = ({ post }) => {
           )}
         </div>
       </div>
-      <div className="mt-4 flex items-center justify-between">
+      <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-4">
           <Like post={post} />
 

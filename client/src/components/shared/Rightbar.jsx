@@ -75,15 +75,15 @@ const Rightbar = () => {
   const currentLocation = useLocation().pathname;
 
   return (
-    <aside className="hidden rightbar overflow-auto" aria-label="Suggestions">
+    <aside className="rightbar overflow-auto" aria-label="Suggestions">
       {currentLocation !== "/communities" && (
-        <div>
+        <section className="rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
           <div className="mb-4 flex items-end justify-between">
-            <h5 className="text-sm font-semibold text-slate-800">
+            <h5 className="text-sm font-semibold text-slate-800 md:text-base">
               Suggested communities
             </h5>
             <Link
-              className="text-xs font-medium text-primary"
+              className="text-xs font-semibold text-primary hover:underline"
               to="/communities"
             >
               View all
@@ -99,7 +99,7 @@ const Rightbar = () => {
             {visibleCommunities?.map((community) => (
               <li
                 key={community._id}
-                className="flex items-center justify-between rounded-xl border border-slate-200 bg-white/95 px-3 py-2 shadow-sm"
+                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white/95 px-3 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div className="flex items-center">
                   <img
@@ -121,7 +121,7 @@ const Rightbar = () => {
 
                 <button
                   onClick={() => toggleJoinModal(community._id, true)}
-                  className="group rounded-lg border border-dashed border-primary px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                  className="group rounded-xl border border-dashed border-primary px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
                 >
                   <p className="flex items-center gap-1 group-hover:text-white">
                     <IoIosPeople className="inline-block text-lg" />
@@ -136,13 +136,14 @@ const Rightbar = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
 
       <hr className="my-4 border-slate-200" />
-      <h5 className="mb-3 text-sm font-semibold text-slate-800">
-        Popular users to follow
-      </h5>
+      <section className="rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
+        <h5 className="mb-3 text-sm font-semibold text-slate-800 md:text-base">
+          Popular users to follow
+        </h5>
 
       {publicUsersFetched && recommendedUsers?.length === 0 && (
         <div className="text-center text-xs italic text-slate-400">
@@ -154,7 +155,7 @@ const Rightbar = () => {
           recommendedUsers.map((user) => (
             <li
               key={user._id}
-              className="flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 shadow-sm"
+              className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white/95 px-3 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="flex items-center gap-2">
                 <img
@@ -177,7 +178,7 @@ const Rightbar = () => {
               <button
                 disabled={followLoading[user._id]}
                 onClick={() => followUserHandler(user._id)}
-                className="group rounded-lg border border-dashed border-primary px-3 py-1 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                className="group rounded-xl border border-dashed border-primary px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
               >
                 {followLoading[user._id] ? (
                   <div className="flex items-center justify-center gap-2 group-hover:text-white">
@@ -193,6 +194,7 @@ const Rightbar = () => {
             </li>
           ))}
       </ul>
+      </section>
     </aside>
   );
 };

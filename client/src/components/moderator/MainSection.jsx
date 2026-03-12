@@ -8,13 +8,13 @@ const MainSection = () => {
 
   return (
     <div className="flex flex-col p-3">
-      <ul className="flex flex-col md:flex-row border-b">
+      <ul className="flex flex-col gap-2 rounded-xl bg-slate-100 p-1 md:flex-row">
         <li
           className={`${
             activeTab === "Reported Posts"
-              ? "border-blue-500 bg-primary rounded text-white"
-              : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-          } flex-1 cursor-pointer text-center p-1 border-b-2 font-medium`}
+              ? "bg-primary text-white shadow-sm"
+              : "text-gray-500 hover:bg-white hover:text-gray-700"
+          } flex-1 cursor-pointer rounded-lg p-2 text-center text-sm font-medium transition`}
           onClick={() => setActiveTab("Reported Posts")}
         >
           Reported Posts
@@ -22,9 +22,9 @@ const MainSection = () => {
         <li
           className={`${
             activeTab === "Members"
-              ? "border-blue-500 bg-primary rounded text-white"
-              : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-          } flex-1 cursor-pointer text-center p-1 border-b-2 font-medium`}
+              ? "bg-primary text-white shadow-sm"
+              : "text-gray-500 hover:bg-white hover:text-gray-700"
+          } flex-1 cursor-pointer rounded-lg p-2 text-center text-sm font-medium transition`}
           onClick={() => setActiveTab("Members")}
         >
           Members
@@ -33,9 +33,9 @@ const MainSection = () => {
         <li
           className={`${
             activeTab === "Banned Users"
-              ? "border-blue-500 bg-primary rounded text-white"
-              : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-          } flex-1 cursor-pointer text-center p-1 border-b-2 font-medium`}
+              ? "bg-primary text-white shadow-sm"
+              : "text-gray-500 hover:bg-white hover:text-gray-700"
+          } flex-1 cursor-pointer rounded-lg p-2 text-center text-sm font-medium transition`}
           onClick={() => setActiveTab("Banned Users")}
         >
           Banned Users

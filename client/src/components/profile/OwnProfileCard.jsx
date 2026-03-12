@@ -23,14 +23,16 @@ const OwnProfileCard = ({ user }) => {
         onClick={handleOpenModal}
       >
         <Tooltip text="Edit profile">
-          <CiEdit />
+          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-slate-50 transition hover:bg-slate-100">
+            <CiEdit />
+          </span>
         </Tooltip>
       </div>
       <div className="flex flex-col items-center justify-between">
         <div className="flex flex-col items-center justify-center">
           <div className="">
             <img
-              className="mr-4 h-28 w-28 rounded-full object-cover ring-2 ring-slate-100"
+              className="mr-4 h-28 w-28 rounded-full object-cover ring-4 ring-blue-100"
               src={user.avatar}
               alt="Profile"
             ></img>
@@ -45,12 +47,12 @@ const OwnProfileCard = ({ user }) => {
           <div>
             <h2 className="mt-5 text-center text-lg font-bold text-slate-900">{user.name}</h2>
             {user.bio ? (
-              <p className="flex items-center justify-center gap-2 text-slate-600">
+              <p className="flex items-center justify-center gap-2 text-sm text-slate-600 md:text-base">
                 <GrContactInfo className="text-slate-500" />
                 {user.bio}
               </p>
             ) : (
-              <p className="flex items-center justify-center gap-2 text-slate-400">
+              <p className="flex items-center justify-center gap-2 text-sm text-slate-400 md:text-base">
                 <GrContactInfo className="text-slate-500" />
                 Bio not added
               </p>
@@ -81,7 +83,7 @@ const OwnProfileCard = ({ user }) => {
             {user.interests.split(",").map((interest, i) => (
               <span
                 key={i}
-                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="inline-flex items-center rounded-full bg-white px-2.5 py-1 text-sm font-medium text-gray-800 ring-1 ring-slate-200 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 {interest.trim()}
               </span>

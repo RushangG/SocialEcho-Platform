@@ -25,14 +25,14 @@ const Following = () => {
       <div className="user-page-head">
         <p className="user-page-kicker">Connections</p>
         <h1 className="user-page-title">People You Follow</h1>
-        <p className="user-page-subtitle">Stay close to creators and friends you care about.</p>
+        <p className="user-page-subtitle max-w-2xl">Stay close to creators and friends you care about.</p>
       </div>
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <CommonLoading />
         </div>
       ) : (
-        <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 md:p-5">
+        <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm md:p-5">
           {followingUsers?.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
               {followingUsers.map((user) => (
@@ -40,11 +40,11 @@ const Following = () => {
               ))}
             </div>
           ) : (
-           <div className="text-center flex justify-center items-center flex-col rounded-xl bg-slate-50 py-6">
-            <p className="text-slate-500 py-5">
+           <div className="flex flex-col items-center justify-center rounded-xl bg-slate-50 py-8 text-center">
+            <p className="py-4 text-sm font-medium text-slate-500 md:text-base">
              You are not following anyone yet.
             </p>
-              <img src={noFollow} alt="no post" className="max-w-md rounded-xl" />
+              <img src={noFollow} alt="no post" className="max-w-md rounded-xl border border-slate-200 shadow-sm" />
             </div>
           )}
         </div>
