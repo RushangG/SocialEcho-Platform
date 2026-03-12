@@ -31,10 +31,10 @@ const CommunityHome = () => {
 
   return (
     <>
-      <div className="main-section bg-white">
+      <div className="main-section">
         <CommunityMainSection />
       </div>
-      <div className="col-span-1 h-[85vh] overflow-y-auto rounded-md border bg-white p-5 md:sticky md:top-20">
+      <div className="col-span-1 h-[85vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm md:sticky md:top-20">
         <CommunityRightbar />
       </div>
     </>

@@ -81,7 +81,7 @@ const Search = () => {
   };
 
   return (
-    <div>
+    <div className="relative w-full">
       <div className="relative">
         <input
           type="text"
@@ -89,7 +89,7 @@ const Search = () => {
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Search for people, posts or communities"
-          className="h-10 py-1 bg-white border w-full md:w-[660px] rounded-full text-sm shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-500 transition duration-300 pl-3 pr-10"
+          className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50/80 py-1 pl-4 pr-10 text-sm shadow-inner transition duration-300 placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-100"
           aria-label="Search"
           autoComplete="off"
         />
@@ -106,7 +106,7 @@ const Search = () => {
       {inputValue !== "" && (
         <div
           onBlur={() => !community && clearValues()}
-          className="absolute start-0 md:start-auto w-screen top-12 md:w-[660px] bg-white border rounded-md shadow-md"
+          className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-lg"
         >
           {loading && (
             <div className="flex items-center justify-center py-2 px-2">
@@ -117,13 +117,13 @@ const Search = () => {
           {posts.length > 0 && (
             <ul className="z-30">
               {posts.map((post) => (
-                <li key={post._id} className="border-b py-2 px-4">
+                <li key={post._id} className="border-b border-slate-100 py-2 px-4">
                   <div
                     onClick={() => {
                       navigate(`/post/${post._id}`);
                       clearValues();
                     }}
-                    className="block text-sm text-gray-700 hover:text-blue-500 cursor-pointer"
+                    className="block cursor-pointer text-sm text-gray-700 hover:text-blue-500"
                   >
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
@@ -135,9 +135,6 @@ const Search = () => {
                         />
                       </div>
                       <div className="ml-3">
-                        <div className="font-medium text-gray-900">
-                          {post.title}
-                        </div>
                         <div className="text-sm text-gray-500">
                           {post.content}
                         </div>
@@ -154,13 +151,13 @@ const Search = () => {
           {users.length > 0 && (
             <ul className="z-30">
               {users.map((user) => (
-                <li key={user._id} className="border-b py-2 px-4">
+                <li key={user._id} className="border-b border-slate-100 py-2 px-4">
                   <div
                     onClick={() => {
                       navigate(`/user/${user._id}`);
                       clearValues();
                     }}
-                    className="block text-sm text-gray-700 hover:text-indigo-500 cursor-pointer"
+                    className="block cursor-pointer text-sm text-gray-700 hover:text-indigo-500"
                   >
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
@@ -185,7 +182,7 @@ const Search = () => {
             </ul>
           )}
           {community && (
-            <div className="border-b py-2 px-4">
+            <div className="border-b border-slate-100 py-2 px-4">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <img
@@ -214,7 +211,7 @@ const Search = () => {
                         community={community}
                       />
                       <button
-                        className="bg-primary px-2 py-1 text-white text-sm rounded-md"
+                        className="rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-white transition hover:bg-blue-700"
                         onClick={() => toggleModal(true)}
                       >
                         Join
@@ -233,7 +230,7 @@ const Search = () => {
                 navigate(`/community/${joinedCommunity.name}`);
                 clearValues();
               }}
-              className="block text-sm text-gray-700 hover:text-indigo-500 border-b py-2 px-4 cursor-pointer"
+              className="block cursor-pointer border-b border-slate-100 py-2 px-4 text-sm text-gray-700 hover:text-indigo-500"
             >
               <div className="flex items-center">
                 <div className="flex-shrink-0">

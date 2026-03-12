@@ -75,13 +75,13 @@ const MainSection = () => {
 
   return (
     <div className="flex flex-col">
-      <ul className="flex">
+      <ul className="flex gap-2 rounded-xl bg-slate-100 p-1">
         <li
           className={`${
             activeTab === "All posts"
-              ? "border-blue-500 bg-primary rounded-md text-white"
-              : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-          } flex-1 cursor-pointer text-center py-2 px-1 border-b-2 font-medium`}
+              ? "bg-primary text-white shadow-sm"
+              : "text-gray-500 hover:bg-white hover:text-gray-700"
+          } flex-1 cursor-pointer rounded-lg px-2 py-2 text-center text-sm font-medium transition`}
           onClick={() => setActiveTab("All posts")}
         >
           All post
@@ -89,9 +89,9 @@ const MainSection = () => {
         <li
           className={`${
             activeTab === "You're following"
-              ? "border-blue-500 bg-primary rounded-md text-white"
-              : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-          } flex-1 cursor-pointer text-center py-2 px-1 border-b-2 font-medium`}
+              ? "bg-primary text-white shadow-sm"
+              : "text-gray-500 hover:bg-white hover:text-gray-700"
+          } flex-1 cursor-pointer rounded-lg px-2 py-2 text-center text-sm font-medium transition`}
           onClick={() => setActiveTab("You're following")}
         >
           You're following
@@ -115,7 +115,7 @@ const MainSection = () => {
             <div>{memoizedCommunityPosts}</div>
             {communityPosts.length < totalCommunityPosts && (
               <button
-                className="bg-primary hover:bg-blue-700 text-sm text-white font-semibold rounded-md w-full p-2 my-3"
+                className="my-3 w-full rounded-xl bg-primary p-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-blue-700"
                 onClick={handleLoadMore}
                 disabled={isLoadMoreLoading}
               >

@@ -14,24 +14,27 @@ const Saved = () => {
   const savedPosts = useSelector((state) => state.posts?.savedPosts);
 
   return (
-    <div className="main-section bg-white border">
-      <div className="flex flex-col mb-3">
-        <h2 className="text-lg font-semibold text-gray-700 mb-4 text-center border-b py-3">
-          Your saved posts
-        </h2>
+    <div className="user-page-shell">
+      <div className="user-page-head">
+        <p className="user-page-kicker">Library</p>
+        <h1 className="user-page-title">Saved Posts</h1>
+        <p className="user-page-subtitle max-w-2xl">Revisit posts you bookmarked for later.</p>
+      </div>
+
+      <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm md:p-5">
 
         {savedPosts && savedPosts.length > 0 ? (
-          <div className="flex flex-col items-center px-5 py-5 ">
+          <div className="flex flex-col items-center gap-3 py-2">
             {savedPosts.reverse().map((post) => (
               <SavedPost key={post._id} post={post} />
             ))}
           </div>
         ) : (
-          <div className="text-center flex justify-center items-center flex-col">
-            <p className="text-gray-500 py-5">
+          <div className="flex flex-col items-center justify-center rounded-xl bg-slate-50 py-8 text-center">
+            <p className="py-4 text-sm font-medium text-slate-500 md:text-base">
               You haven't saved any post yet.
             </p>
-            <img loading="lazy" src={NoSavedPost} alt="no post" />
+            <img loading="lazy" src={NoSavedPost} alt="no post" className="rounded-xl border border-slate-200 shadow-sm" />
           </div>
         )}
       </div>

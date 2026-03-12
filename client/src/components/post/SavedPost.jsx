@@ -20,28 +20,27 @@ const SavedPost = ({ post }) => {
   };
 
   return (
-    <div className="px-6 py-6 rounded-md border bg-white mb-6 w-full">
-      <p className="border border-dashed border-primary cursor-pointer px-2 py-2 w-7 h-7 flex justify-center items-center mb-3 rounded-full">
+    <div className="mb-4 w-full rounded-2xl border border-slate-200 bg-white/95 px-5 py-5 shadow-sm md:px-6 md:py-6">
+      <p className="mb-3 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-dashed border-primary px-2 py-2 transition hover:bg-blue-50">
         <IoIosArrowBack
           className="text-primary text-xl font-semibold"
           onClick={handleBack}
         />
       </p>
-      <div className="flex justify-between">
+      <div className="flex items-start justify-between">
         <div className="flex gap-2">
           <img
-            className="rounded-full overflow-hidden"
+            className="h-12 w-12 rounded-full object-cover ring-2 ring-slate-100"
             src={user.avatar}
             alt="user avatar"
-            style={{ width: "50px" }}
             loading="lazy"
           />
           <div className="">
-            <p className="text-lg font-semibold">{user.name}</p>
-            <p className="text-xs text-gray-500">{community.name}</p>
+            <p className="text-base font-semibold text-slate-900 md:text-lg">{user.name}</p>
+            <p className="text-xs text-slate-500">{community.name}</p>
           </div>
         </div>
-        <p>{createdAt}</p>
+        <p className="text-xs text-slate-500">{createdAt}</p>
       </div>
       <div
         className="cursor-pointer"
@@ -51,11 +50,11 @@ const SavedPost = ({ post }) => {
           });
         }}
       >
-        <p className="mt-3">{content}</p>
+        <p className="mt-4 text-[15px] leading-relaxed text-slate-800">{content}</p>
         <div className="flex justify-center">
           {fileUrl && isImageFile ? (
             <img
-              className="w-[800px] h-auto rounded-md mt-3"
+              className="mt-4 h-auto w-[800px] rounded-xl ring-1 ring-slate-200"
               src={fileUrl}
               alt={content}
               loading="lazy"
@@ -63,7 +62,7 @@ const SavedPost = ({ post }) => {
           ) : (
             fileUrl && (
               <video
-                className="w-[800px] h-auto rounded-md mt-3"
+                className="mt-4 h-auto w-[800px] rounded-xl ring-1 ring-slate-200"
                 src={fileUrl}
                 controls
               />
@@ -72,11 +71,11 @@ const SavedPost = ({ post }) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-4">
+      <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
         <div className="flex items-center gap-2">
           <Like post={post} />
           <Link to={`/post/${post._id}`}>
-            <button className="flex items-center text-xl gap-1">
+            <button className="flex items-center gap-1 rounded-lg px-2 py-1 text-xl text-slate-700 transition hover:bg-slate-100">
               {" "}
               <HiOutlineChatBubbleOvalLeft />
               {comments.length}

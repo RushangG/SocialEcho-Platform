@@ -1,5 +1,5 @@
 import { useMemo, useEffect, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getJoinedCommunitiesAction } from "../../redux/actions/communityActions";
 import {
@@ -40,41 +40,65 @@ const Leftbar = ({ showLeftbar }) => {
       aria-label="Primary navigation"
     >
       <div className="flex h-full flex-col justify-start">
-        <div className="flex w-full flex-col gap-4 px-5 pb-5">
-          <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <div className="flex w-full flex-col gap-4 overflow-y-auto px-5 pb-5">
+          <div className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
             Navigation
           </div>
           <nav className="flex flex-col gap-2 text-sm">
-            <Link
-              className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
+                  isActive
+                    ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
+                    : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
+                }`
+              }
               to="/home"
             >
               <HiOutlineHome className="text-lg" />
               <span>Home</span>
-            </Link>
-            <Link
-              className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
+                  isActive
+                    ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
+                    : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
+                }`
+              }
               to="/profile"
             >
               <HiOutlineUserCircle className="text-lg" />
               <span>Profile</span>
-            </Link>
-            <Link
-              className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
+                  isActive
+                    ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
+                    : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
+                }`
+              }
               to="/saved"
             >
               <HiOutlineTag className="text-lg" />
               <span>Saved</span>
-            </Link>
+            </NavLink>
 
             {user && user.role === "general" && (
-              <Link
-                className="flex items-center gap-2 rounded-lg px-2 py-2 font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-primary"
+              <NavLink
+                className={({ isActive }) =>
+                  `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
+                    isActive
+                      ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
+                      : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
+                  }`
+                }
                 to="/following"
               >
                 <HiOutlineRectangleStack className="text-lg" />
                 <span>Following</span>
-              </Link>
+              </NavLink>
             )}
           </nav>
 
@@ -85,7 +109,7 @@ const Leftbar = ({ showLeftbar }) => {
           </div>
 
           {communityLinks && communityLinks.length > 0 ? (
-            <div className="w-full">
+            <div className="w-full rounded-xl border border-slate-100 bg-slate-50/70 p-3">
               <div className="mb-1 flex items-center justify-between">
                 <div className="flex items-center gap-1 text-sm font-medium text-slate-700">
                   <HiOutlineUserGroup className="text-lg" />
@@ -106,7 +130,7 @@ const Leftbar = ({ showLeftbar }) => {
                 {communityLinks.map((communityLink) => (
                   <li key={communityLink.href}>
                     <Link
-                      className="flex items-center gap-2 rounded-lg px-2 py-1 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-primary"
+                      className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-white hover:text-primary hover:translate-x-0.5"
                       to={communityLink.href}
                     >
                       <span className="line-clamp-1">{communityLink.label}</span>

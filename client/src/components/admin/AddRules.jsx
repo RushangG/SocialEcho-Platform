@@ -76,18 +76,18 @@ const AddRules = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <div className="flex items-center gap-2 mb-6">
-        <FaGavel className="text-2xl text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-800">Add Moderation Rules</h2>
+    <div className="admin-content-card">
+      <div className="admin-header-row">
+        <FaGavel className="admin-header-icon" />
+        <h2 className="admin-page-title">Add Moderation Rules</h2>
       </div>
 
       {message.text && (
         <div
-          className={`p-4 mb-4 rounded-lg ${
+          className={`admin-message mb-4 ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-300"
-              : "bg-red-100 text-red-800 border border-red-300"
+              ? "admin-message-success"
+              : "admin-message-error"
           }`}
         >
           {message.text}
@@ -102,9 +102,9 @@ const AddRules = () => {
             name="useDefaultData"
             checked={formData.useDefaultData}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            className="admin-checkbox"
           />
-          <label htmlFor="useDefaultData" className="text-sm font-medium text-gray-700">
+          <label htmlFor="useDefaultData" className="admin-field-label mb-0">
             Use default rules from JSON file
           </label>
         </div>
@@ -114,7 +114,7 @@ const AddRules = () => {
             <div>
               <label
                 htmlFor="rule"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="admin-field-label"
               >
                 Rule Name *
               </label>
@@ -125,7 +125,7 @@ const AddRules = () => {
                 value={formData.rule}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="admin-input"
                 placeholder="e.g., No hate speech or discrimination"
               />
             </div>
@@ -133,7 +133,7 @@ const AddRules = () => {
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="admin-field-label"
               >
                 Description *
               </label>
@@ -144,7 +144,7 @@ const AddRules = () => {
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="admin-textarea"
                 placeholder="Enter detailed description of the rule"
               />
             </div>
@@ -154,11 +154,7 @@ const AddRules = () => {
         <button
           type="submit"
           disabled={loading || (!formData.useDefaultData && (!formData.rule || !formData.description))}
-          className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-colors ${
-            loading || (!formData.useDefaultData && (!formData.rule || !formData.description))
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          className="admin-btn-primary w-full py-3"
         >
           {loading ? (
             <ButtonLoadingSpinner loadingText="Adding rules..." />
@@ -172,12 +168,12 @@ const AddRules = () => {
         <div className="mt-8 text-center">Loading rules...</div>
       ) : rules && rules.length > 0 && (
         <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4">Existing Rules ({rules.length})</h3>
+          <h3 className="admin-subsection-title mb-4">Existing Rules ({rules.length})</h3>
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {rules.map((rule) => (
               <div
                 key={rule._id}
-                className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                className="admin-entity-item"
               >
                 <h4 className="font-semibold text-gray-800">{rule.rule}</h4>
                 <p className="text-sm text-gray-600 mt-1">{rule.description}</p>

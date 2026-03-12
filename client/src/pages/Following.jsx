@@ -21,28 +21,30 @@ const Following = () => {
   }, [dispatch]);
 
   return (
-    <div className="main-section bg-white border">
+    <div className="user-page-shell">
+      <div className="user-page-head">
+        <p className="user-page-kicker">Connections</p>
+        <h1 className="user-page-title">People You Follow</h1>
+        <p className="user-page-subtitle max-w-2xl">Stay close to creators and friends you care about.</p>
+      </div>
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <CommonLoading />
         </div>
       ) : (
-        <div>
-          <h2 className="font-semibold text-gray-700 mb-4 text-center border-b py-3">
-            People you're following
-          </h2>
+        <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm md:p-5">
           {followingUsers?.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center px-3 py-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
               {followingUsers.map((user) => (
                 <PublicProfileCard key={user._id} user={user} />
               ))}
             </div>
           ) : (
-           <div className="text-center flex justify-center items-center flex-col">
-            <p className="text-gray-500 py-5">
+           <div className="flex flex-col items-center justify-center rounded-xl bg-slate-50 py-8 text-center">
+            <p className="py-4 text-sm font-medium text-slate-500 md:text-base">
              You are not following anyone yet.
             </p>
-              <img src={noFollow} alt="no post" className="max-w-md" />
+              <img src={noFollow} alt="no post" className="max-w-md rounded-xl border border-slate-200 shadow-sm" />
             </div>
           )}
         </div>

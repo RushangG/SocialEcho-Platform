@@ -83,18 +83,18 @@ const AddCommunities = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <div className="flex items-center gap-2 mb-6">
-        <FaUsers className="text-2xl text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-800">Add Communities</h2>
+    <div className="admin-content-card">
+      <div className="admin-header-row">
+        <FaUsers className="admin-header-icon" />
+        <h2 className="admin-page-title">Add Communities</h2>
       </div>
 
       {message.text && (
         <div
-          className={`p-4 mb-4 rounded-lg ${
+          className={`admin-message mb-4 ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-300"
-              : "bg-red-100 text-red-800 border border-red-300"
+              ? "admin-message-success"
+              : "admin-message-error"
           }`}
         >
           {message.text}
@@ -109,9 +109,9 @@ const AddCommunities = () => {
             name="useDefaultData"
             checked={formData.useDefaultData}
             onChange={handleChange}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            className="admin-checkbox"
           />
-          <label htmlFor="useDefaultData" className="text-sm font-medium text-gray-700">
+          <label htmlFor="useDefaultData" className="admin-field-label mb-0">
             Use default communities from JSON file
           </label>
         </div>
@@ -121,7 +121,7 @@ const AddCommunities = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="admin-field-label"
               >
                 Community Name *
               </label>
@@ -132,7 +132,7 @@ const AddCommunities = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="admin-input"
                 placeholder="Enter community name"
               />
             </div>
@@ -140,7 +140,7 @@ const AddCommunities = () => {
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="admin-field-label"
               >
                 Description
               </label>
@@ -150,7 +150,7 @@ const AddCommunities = () => {
                 value={formData.description}
                 onChange={handleChange}
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="admin-textarea"
                 placeholder="Enter community description"
               />
             </div>
@@ -158,7 +158,7 @@ const AddCommunities = () => {
             <div>
               <label
                 htmlFor="banner"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="admin-field-label"
               >
                 Banner Image
               </label>
@@ -197,11 +197,7 @@ const AddCommunities = () => {
         <button
           type="submit"
           disabled={loading || (!formData.useDefaultData && !formData.name)}
-          className={`w-full py-3 px-4 rounded-lg font-medium text-white transition-colors ${
-            loading || (!formData.useDefaultData && !formData.name)
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          className="admin-btn-primary w-full py-3"
         >
           {loading ? (
             <ButtonLoadingSpinner loadingText="Adding communities..." />
@@ -213,12 +209,12 @@ const AddCommunities = () => {
 
       {communities && communities.length > 0 && (
         <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4">Existing Communities ({communities.length})</h3>
+          <h3 className="admin-subsection-title mb-4">Existing Communities ({communities.length})</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {communities.slice(0, 6).map((community) => (
               <div
                 key={community._id}
-                className="border rounded-lg p-3 hover:shadow-md transition-shadow"
+                className="admin-entity-item"
               >
                 {community.banner && (
                   <img
