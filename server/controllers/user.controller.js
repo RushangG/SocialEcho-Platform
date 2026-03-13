@@ -277,17 +277,16 @@ const getUser = async (req, res, next) => {
  * @description All users sign up as "general" role by default.
  * Admins can promote users to moderator role through the admin panel.
  *
+ * Context-based authentication is now mandatory for all users:
+ * - We always proceed to send a verification email after successful signup.
+ * - Any `isConsentGiven` value from the client is ignored.
+ *
  * @param {Object} req.files - The files attached to the request object (for avatar).
- * @param {string} req.body.isConsentGiven - Indicates whether the user has given consent to enable context based auth.
- * @param {Function} next - The next middleware function to call if consent is given by the user to enable context based auth.
+ * @param {Function} next - The next middleware function to call (to send verification email).
  */
 const addUser = async (req, res, next) => {
   let newUser;
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  /**
-   * @type {boolean} isConsentGiven
-   */
-  const isConsentGiven = JSON.parse(req.body.isConsentGiven);
 
   const defaultAvatar =
     "https://raw.githubusercontent.com/nz-m/public-files/main/dp.jpg";
@@ -311,14 +310,9 @@ const addUser = async (req, res, next) => {
     if (newUser.isNew) {
       throw new Error("Failed to add user");
     }
-
-    if (isConsentGiven === false) {
-      res.status(201).json({
-        message: "User added successfully",
-      });
-    } else {
-      next();
-    }
+    // Always proceed to next middleware (sendVerificationEmail),
+    // since context-based authentication is mandatory.
+    next();
   } catch (err) {
     res.status(400).json({
       message: "Failed to add user",
