@@ -45,7 +45,8 @@ const SignUpNew = () => {
     }
   };
 
-  const [isConsentGiven, setIsConsentGiven] = useState(false);
+  // Context-based authentication is mandatory; keep this true.
+  const [isConsentGiven, setIsConsentGiven] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
 
@@ -59,13 +60,14 @@ const SignUpNew = () => {
     formData.append("password", password);
     formData.append("avatar", avatar);
     formData.append("role", "general");
-    formData.append("isConsentGiven", isConsentGiven.toString());
+    // Backend ignores this flag now, but we always send "true" for clarity.
+    formData.append("isConsentGiven", "true");
     const timeout = setTimeout(() => {
       setLoadingText("This is taking longer than usual. Please wait...");
     }, 5000);
-    await dispatch(signUpAction(formData, navigate, isConsentGiven, email));
+    await dispatch(signUpAction(formData, navigate, true, email));
     setLoading(false);
-    setIsConsentGiven(false);
+    setIsConsentGiven(true);
     clearTimeout(timeout);
   };
 

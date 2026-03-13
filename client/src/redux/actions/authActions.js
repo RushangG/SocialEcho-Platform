@@ -64,21 +64,13 @@ export const signUpAction =
           payload: error,
         });
       } else {
-        if (!isConsentGiven) {
-          dispatch({
-            type: types.SIGNUP_SUCCESS,
-            payload: types.SIGNUP_SUCCESS_MESSAGE,
-          });
-          navigate("/signin");
-        }
-
-        if (isConsentGiven) {
-          dispatch({
-            type: types.SIGNUP_SUCCESS,
-            payload: types.SIGNUP_SUCCESS_MESSAGE,
-          });
-          navigate("/auth/verify", { state: email });
-        }
+        // Context-based auth (with email verification) is mandatory for all users.
+        // After successful signup, always send the user to the verification step.
+        dispatch({
+          type: types.SIGNUP_SUCCESS,
+          payload: types.SIGNUP_SUCCESS_MESSAGE,
+        });
+        navigate("/auth/verify", { state: email });
       }
     } catch (error) {
       dispatch({
