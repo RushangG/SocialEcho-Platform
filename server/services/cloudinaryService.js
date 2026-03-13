@@ -39,11 +39,11 @@ const uploadFile = async (fileBuffer, originalName, folder, options = {}) => {
     const dataUri = `data:${getContentType(ext)};base64,${fileBuffer.toString("base64")}`;
 
     // Upload to Cloudinary
-    // Note: If folder is specified, Cloudinary will automatically prefix the public_id
-    // So we just need the unique name without extension
+    // Note: When folder is specified, Cloudinary automatically prefixes the public_id with the folder
+    // So we should NOT include the folder in public_id to avoid duplication
     const uploadOptions = {
       folder: folder,
-      public_id: `${folder}/${publicIdWithoutExt}`, // Include folder in public_id
+      public_id: publicIdWithoutExt, // Don't include folder - Cloudinary adds it automatically
       resource_type: options.resourceType || "auto", // auto detects image/video
       overwrite: false,
       invalidate: true, // Invalidate CDN cache
@@ -156,19 +156,36 @@ const deleteFile = async (publicId, resourceType = "image") => {
  */
 const extractPublicId = (url) => {
   try {
-    // Cloudinary URLs have format: https://res.cloudinary.com/{cloud_name}/{resource_type}/upload/{version}/{public_id}.{format}
+    // Cloudinary URLs have format: https://res.cloudinary.com/{cloud_name}/{resource_type}/upload/{version}/{folder}/{public_id}.{format}
+    // Example: https://res.cloudinary.com/mycloud/image/upload/v1234567890/socialecho/post-files/uuid.jpg
+    // Public ID should be: socialecho/post-files/uuid
+    
     const urlParts = url.split("/");
     const uploadIndex = urlParts.findIndex((part) => part === "upload");
+    
     if (uploadIndex === -1) {
-      throw new Error("Invalid Cloudinary URL format");
+      throw new Error("Invalid Cloudinary URL format: 'upload' not found");
     }
-    // Get everything after "upload" and before the file extension
-    const publicIdWithVersion = urlParts.slice(uploadIndex + 2).join("/");
-    // Remove version and extension
-    const publicId = publicIdWithVersion.split("/").slice(1).join("/").replace(/\.[^/.]+$/, "");
+    
+    // Get everything after "upload" (version, folder, public_id, extension)
+    // uploadIndex + 1 = version
+    // uploadIndex + 2 onwards = folder/public_id.extension
+    const partsAfterUpload = urlParts.slice(uploadIndex + 1);
+    
+    if (partsAfterUpload.length < 2) {
+      throw new Error("Invalid Cloudinary URL format: insufficient parts after 'upload'");
+    }
+    
+    // Skip version (first part), get the rest
+    const publicIdWithExt = partsAfterUpload.slice(1).join("/");
+    
+    // Remove file extension
+    const publicId = publicIdWithExt.replace(/\.[^/.]+$/, "");
+    
     return publicId;
   } catch (error) {
-    throw new Error("Invalid Cloudinary URL format");
+    console.error("Error extracting public ID from URL:", url, error);
+    throw new Error(`Invalid Cloudinary URL format: ${error.message}`);
   }
 };
 

@@ -10,7 +10,7 @@ const User = require("../models/user.model");
 const Relationship = require("../models/relationship.model");
 const Report = require("../models/report.model");
 const PendingPost = require("../models/pendingPost.model");
-const fs = require("fs");
+const { deleteFile, extractPublicId } = require("../services/cloudinaryService");
 
 const createPost = async (req, res) => {
   try {
@@ -364,13 +364,48 @@ const deletePost = async (req, res) => {
       });
     }
 
-    await post.remove();
+      // Delete file from Cloudinary if it exists
+    if (post.fileUrl) {
+      try {
+        // Check if it's a Cloudinary URL
+        if (post.fileUrl.includes("cloudinary.com")) {
+          const publicId = extractPublicId(post.fileUrl);
+          const resourceType = post.fileType === "video" ? "video" : "image";
+          await deleteFile(publicId, resourceType);
+          console.log(`Deleted file from Cloudinary: ${publicId}`);
+        } else {
+          // Legacy: Handle old local file URLs (if any still exist)
+          console.log(`Skipping deletion of non-Cloudinary URL: ${post.fileUrl}`);
+        }
+      } catch (fileError) {
+        // Log error but don't fail the deletion
+        console.error("Error deleting file from Cloudinary:", fileError);
+      }
+    }
+
+    // Delete associated comments
+    await Comment.deleteMany({ _id: post.comments });
+
+    // Delete associated reports
+    await Report.deleteOne({ post: post._id });
+
+    // Remove post from users' saved posts
+    await User.updateMany(
+      { savedPosts: post._id },
+      { $pull: { savedPosts: post._id } }
+    );
+
+    // Delete the post
+    await Post.findByIdAndDelete(id);
+    
     res.status(200).json({
       message: "Post deleted successfully",
     });
   } catch (error) {
-    res.status(404).json({
+    console.error("Error deleting post:", error);
+    res.status(500).json({
       message: "An error occurred while deleting the post",
+      error: error.message,
     });
   }
 };
