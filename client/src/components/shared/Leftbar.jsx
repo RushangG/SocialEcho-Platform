@@ -47,56 +47,40 @@ const Leftbar = ({ showLeftbar }) => {
           <nav className="flex flex-col gap-2 text-sm">
             <NavLink
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
-                  isActive
-                    ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
-                }`
+                `leftbar-nav-item ${isActive ? "active" : ""}`
               }
               to="/home"
             >
-              <HiOutlineHome className="text-lg" />
+              <HiOutlineHome className="leftbar-nav-icon" />
               <span>Home</span>
             </NavLink>
             <NavLink
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
-                  isActive
-                    ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
-                }`
+                `leftbar-nav-item ${isActive ? "active" : ""}`
               }
               to="/profile"
             >
-              <HiOutlineUserCircle className="text-lg" />
+              <HiOutlineUserCircle className="leftbar-nav-icon" />
               <span>Profile</span>
             </NavLink>
             <NavLink
               className={({ isActive }) =>
-                `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
-                  isActive
-                    ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
-                    : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
-                }`
+                `leftbar-nav-item ${isActive ? "active" : ""}`
               }
               to="/saved"
             >
-              <HiOutlineTag className="text-lg" />
+              <HiOutlineTag className="leftbar-nav-icon" />
               <span>Saved</span>
             </NavLink>
 
             {user && user.role === "general" && (
               <NavLink
                 className={({ isActive }) =>
-                  `flex items-center gap-2 rounded-xl px-3 py-2.5 font-medium transition-all ${
-                    isActive
-                      ? "bg-blue-50 text-primary ring-1 ring-blue-100 shadow-sm"
-                      : "text-slate-700 hover:bg-slate-100 hover:text-primary hover:translate-x-0.5"
-                  }`
+                  `leftbar-nav-item ${isActive ? "active" : ""}`
                 }
                 to="/following"
               >
-                <HiOutlineRectangleStack className="text-lg" />
+                <HiOutlineRectangleStack className="leftbar-nav-icon" />
                 <span>Following</span>
               </NavLink>
             )}
@@ -127,12 +111,13 @@ const Leftbar = ({ showLeftbar }) => {
                 </Link>
               </div>
               <ul className="mt-2 w-full space-y-1">
-                {communityLinks.map((communityLink) => (
+                {communityLinks.map((communityLink, index) => (
                   <li key={communityLink.href}>
                     <Link
-                      className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-white hover:text-primary hover:translate-x-0.5"
+                      className="leftbar-community-item"
                       to={communityLink.href}
                     >
+                      <span className={`leftbar-community-dot leftbar-community-dot-${index % 5}`} />
                       <span className="line-clamp-1">{communityLink.label}</span>
                     </Link>
                   </li>

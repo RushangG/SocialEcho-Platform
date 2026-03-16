@@ -106,17 +106,22 @@ const ManageModerators = () => {
   const filteredUsers = users;
 
   return (
-    <div className="admin-content-card">
-      <div className="admin-header-row">
-        <FaUserShield className="admin-header-icon" />
-        <h2 className="admin-page-title">Manage Moderators</h2>
+    <div className="admin-content-card manage-moderators-shell">
+      <div className="manage-moderators-head">
+        <div className="manage-moderators-head-icon">
+          <FaUserShield className="admin-header-icon" />
+        </div>
+        <div>
+          <h2 className="manage-moderators-title">Manage Moderators</h2>
+          <p className="manage-moderators-sub">Create moderators and manage user roles</p>
+        </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b mb-6 gap-2">
+      <div className="manage-moderators-tabs">
         <button
           onClick={() => setActiveTab("create")}
-          className={`admin-btn-neutral ${
+          className={`admin-btn-neutral manage-moderators-tab-btn ${
             activeTab === "create"
               ? "admin-tab-item-active"
               : ""
@@ -127,7 +132,7 @@ const ManageModerators = () => {
         </button>
         <button
           onClick={() => setActiveTab("manage")}
-          className={`admin-btn-neutral ${
+          className={`admin-btn-neutral manage-moderators-tab-btn ${
             activeTab === "manage"
               ? "admin-tab-item-active"
               : ""
@@ -227,11 +232,11 @@ const ManageModerators = () => {
       )}
 
       {activeTab === "manage" && (
-        <div className="space-y-4">
+        <div className="space-y-4 manage-moderators-manage-wrap">
           {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <div className="manage-moderators-tools">
+            <div className="flex-1 relative manage-moderators-search-wrap">
+              <FaSearch className="manage-moderators-search-icon" />
               <input
                 type="text"
                 placeholder="Search by name or email..."
@@ -243,7 +248,7 @@ const ManageModerators = () => {
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="admin-select"
+              className="admin-select manage-moderators-role-select"
             >
               <option value="all">All Roles</option>
               <option value="general">General Users</option>
@@ -253,9 +258,9 @@ const ManageModerators = () => {
 
           {/* Users List */}
           {loadingUsers ? (
-            <div className="text-center py-8">Loading users...</div>
+            <div className="manage-moderators-loading">Loading users...</div>
           ) : filteredUsers && filteredUsers.length > 0 ? (
-            <div className="admin-table-wrap">
+            <div className="admin-table-wrap manage-moderators-table-wrap">
               <div className="admin-table-scroll">
                 <table className="admin-table">
                   <thead>
@@ -283,25 +288,25 @@ const ManageModerators = () => {
                               <img
                                 src={user.avatar}
                                 alt={user.name}
-                                className="w-8 h-8 rounded-full mr-3 object-cover"
+                                className="w-8 h-8 rounded-full mr-3 object-cover manage-moderators-avatar"
                                 onError={(e) => {
                                   e.target.src =
                                     "https://raw.githubusercontent.com/nz-m/public-files/main/dp.jpg";
                                 }}
                               />
                             ) : (
-                              <div className="w-8 h-8 rounded-full mr-3 bg-gray-300 flex items-center justify-center">
-                                <span className="text-xs text-gray-600">
+                              <div className="w-8 h-8 rounded-full mr-3 manage-moderators-avatar-fallback flex items-center justify-center">
+                                <span className="text-xs manage-moderators-avatar-fallback-text">
                                   {user.name.charAt(0).toUpperCase()}
                                 </span>
                               </div>
                             )}
-                            <span className="font-medium text-gray-900">
+                            <span className="font-medium manage-moderators-user-name">
                               {user.name}
                             </span>
                           </div>
                         </td>
-                        <td className="text-sm text-gray-500">
+                        <td className="text-sm manage-moderators-user-email">
                           {user.email}
                         </td>
                         <td>
@@ -345,7 +350,7 @@ const ManageModerators = () => {
               </div>
             </div>
           ) : (
-            <div className="text-center py-8 text-gray-500">
+            <div className="manage-moderators-empty">
               No users found
             </div>
           )}

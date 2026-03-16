@@ -76,10 +76,15 @@ const AddRules = () => {
   };
 
   return (
-    <div className="admin-content-card">
-      <div className="admin-header-row">
-        <FaGavel className="admin-header-icon" />
-        <h2 className="admin-page-title">Add Moderation Rules</h2>
+    <div className="admin-content-card add-rules-shell">
+      <div className="add-rules-head">
+        <div className="add-rules-head-icon">
+          <FaGavel className="admin-header-icon" />
+        </div>
+        <div>
+          <h2 className="add-rules-title">Add Moderation Rules</h2>
+          <p className="add-rules-sub">Create custom moderation rules or import defaults</p>
+        </div>
       </div>
 
       {message.text && (
@@ -95,7 +100,7 @@ const AddRules = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg">
+        <div className="add-rules-default-row">
           <input
             type="checkbox"
             id="useDefaultData"
@@ -167,16 +172,23 @@ const AddRules = () => {
       {loadingRules ? (
         <div className="mt-8 text-center">Loading rules...</div>
       ) : rules && rules.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-8 add-rules-existing-wrap">
           <h3 className="admin-subsection-title mb-4">Existing Rules ({rules.length})</h3>
-          <div className="space-y-2 max-h-96 overflow-y-auto">
+          <div
+            className="space-y-2 add-rules-list"
+            style={{
+              maxHeight: rules.length > 8 ? "420px" : "none",
+              overflowY: rules.length > 8 ? "auto" : "visible",
+              paddingRight: rules.length > 8 ? "0.25rem" : "0"
+            }}
+          >
             {rules.map((rule) => (
               <div
                 key={rule._id}
-                className="admin-entity-item"
+                className="admin-entity-item add-rules-card"
               >
-                <h4 className="font-semibold text-gray-800">{rule.rule}</h4>
-                <p className="text-sm text-gray-600 mt-1">{rule.description}</p>
+                <h4 className="font-semibold text-gray-800 add-rules-card-title">{rule.rule}</h4>
+                <p className="text-sm text-gray-600 mt-1 add-rules-card-desc">{rule.description}</p>
               </div>
             ))}
           </div>

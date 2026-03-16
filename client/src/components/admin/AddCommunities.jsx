@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCommunitiesAction, getCommunitiesAction } from "../../redux/actions/adminActions";
+import { addCommunitiesAction } from "../../redux/actions/adminActions";
 import ButtonLoadingSpinner from "../loader/ButtonLoadingSpinner";
 import { FaUsers, FaImage } from "react-icons/fa";
 
@@ -83,10 +83,15 @@ const AddCommunities = () => {
   };
 
   return (
-    <div className="admin-content-card">
-      <div className="admin-header-row">
-        <FaUsers className="admin-header-icon" />
-        <h2 className="admin-page-title">Add Communities</h2>
+    <div className="admin-content-card add-communities-shell">
+      <div className="add-communities-head">
+        <div className="add-communities-head-icon">
+          <FaUsers className="admin-header-icon" />
+        </div>
+        <div>
+          <h2 className="add-communities-title">Add Communities</h2>
+          <p className="add-communities-sub">Create communities manually or import defaults</p>
+        </div>
       </div>
 
       {message.text && (
@@ -102,7 +107,7 @@ const AddCommunities = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg">
+        <div className="add-communities-default-row">
           <input
             type="checkbox"
             id="useDefaultData"
@@ -208,22 +213,29 @@ const AddCommunities = () => {
       </form>
 
       {communities && communities.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-8 add-communities-existing-wrap">
           <h3 className="admin-subsection-title mb-4">Existing Communities ({communities.length})</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {communities.slice(0, 6).map((community) => (
+          <div
+            className="grid grid-cols-2 md:grid-cols-3 gap-4 add-communities-grid"
+            style={{
+              maxHeight: communities.length > 8 ? "420px" : "none",
+              overflowY: communities.length > 8 ? "auto" : "visible",
+              paddingRight: communities.length > 8 ? "0.25rem" : "0"
+            }}
+          >
+            {communities.map((community) => (
               <div
                 key={community._id}
-                className="admin-entity-item"
+                className="admin-entity-item add-communities-card"
               >
                 {community.banner && (
                   <img
                     src={community.banner}
                     alt={community.name}
-                    className="w-full h-20 object-cover rounded mb-2"
+                    className="w-full h-20 object-cover rounded mb-2 add-communities-card-img"
                   />
                 )}
-                <p className="text-sm font-medium truncate">{community.name}</p>
+                <p className="text-sm font-medium truncate add-communities-card-name">{community.name}</p>
               </div>
             ))}
           </div>
