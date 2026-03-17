@@ -73,21 +73,22 @@ const CommunityManagement = () => {
   }
 
   return (
-    <div className="admin-split">
+    <div className="admin-content-card admin-split" style={{ background: '#eff6ff', borderRadius: '18px', boxShadow: '0 4px 20px rgba(15,23,42,0.08)' }}>
       {/* Left column */}
-      <div className="admin-pane flex flex-col w-full">
-        <div className="admin-pane-head">
-          <h1 className="admin-pane-title">Communities</h1>
+      <div className="admin-pane flex flex-col w-full" style={{ background: '#fff', borderRadius: '14px', boxShadow: '0 2px 12px rgba(37,99,235,0.07)', padding: '1.2rem 1.1rem', minHeight: '100%' }}>
+        <div className="admin-pane-head" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.1rem' }}>
+          <h1 className="admin-pane-title" style={{ color: '#2563eb', background: '#eff6ff', padding: '0.35rem 1.1rem', borderRadius: '8px', fontWeight: 600, fontSize: '1.15rem' }}>Communities</h1>
           <button
             onClick={handleRefresh}
             disabled={refreshing}
             className="admin-btn-primary"
             title="Refresh communities list"
+            style={{ minWidth: '90px' }}
           >
             {refreshing ? "Refreshing..." : "Refresh"}
           </button>
         </div>
-        <div className="admin-pane-body flex flex-col overflow-y-auto">
+        <div className="admin-pane-body flex flex-col" style={{ maxHeight: communities.length > 8 ? '420px' : 'unset', overflowY: communities.length > 8 ? 'auto' : 'unset', background: '#f8fafc', borderRadius: '10px', padding: '0.7rem 0.5rem' }}>
           {communities.map((community) => (
             <div
               key={community._id}
@@ -96,6 +97,7 @@ const CommunityManagement = () => {
                   ? "admin-entity-item-selected"
                   : ""
               }`}
+              style={{ background: selectedCommunity?._id === community._id ? '#dbeafe' : '#fff', border: '1px solid #e2e8f0', marginBottom: '0.5rem', boxShadow: selectedCommunity?._id === community._id ? '0 2px 8px #93c5fd' : 'none' }}
               onClick={() => handleCommunitySelect(community)}
             >
               <img
@@ -107,23 +109,21 @@ const CommunityManagement = () => {
                   e.target.src = placeholderImage;
                 }}
               />
-              <span className="text-gray-700 text-xs md:text-base">
-                {community.name}
-              </span>
+              <span className="text-gray-700 text-xs md:text-base" style={{ fontWeight: 600 }}>{community.name}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Right column */}
-      <div className="admin-pane flex flex-col w-full">
+      <div className="admin-pane flex flex-col w-full" style={{ background: '#fff', borderRadius: '14px', boxShadow: '0 2px 12px rgba(37,99,235,0.07)', padding: '1.2rem 1.1rem', minHeight: '100%' }}>
         {isChangingCommunity ? (
           <div className="flex justify-center items-center h-screen">
             <span className="admin-loader"></span>
           </div>
         ) : selectedCommunityData ? (
           <div className="admin-pane-body">
-            <h1 className="admin-pane-subtitle">
+            <h1 className="admin-pane-subtitle" style={{ color: '#2563eb', background: '#eff6ff', padding: '0.35rem 1.1rem', borderRadius: '8px', fontWeight: 600, fontSize: '1.15rem', marginBottom: '1rem' }}>
               {selectedCommunityData.name}
             </h1>
 
@@ -153,11 +153,12 @@ const CommunityManagement = () => {
                     <div
                       key={moderator._id}
                       className={`admin-entity-item p-2 cursor-pointer flex flex-col md:flex-row gap-2 justify-between items-center ${
-                        selectedModerator?._id === moderator._id ? "" : ""
+                        selectedModerator?._id === moderator._id ? "admin-entity-item-selected" : ""
                       }`}
+                      style={{ background: selectedModerator?._id === moderator._id ? '#dbeafe' : '#fff', border: '1px solid #e2e8f0', marginBottom: '0.5rem', boxShadow: selectedModerator?._id === moderator._id ? '0 2px 8px #93c5fd' : 'none' }}
                       onClick={() => handleModeratorSelect(moderator)}
                     >
-                      <span className="font-medium">{moderator.name}</span>
+                      <span className="font-medium" style={{ color: '#2563eb' }}>{moderator.name}</span>
                       <button
                         disabled={isUpdating}
                         className={`admin-btn-danger ${

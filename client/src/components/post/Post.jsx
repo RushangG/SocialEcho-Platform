@@ -25,108 +25,91 @@ const Post = ({ post }) => {
   };
 
   return (
-    <article className="rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md md:p-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+    <article className="post-card">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2.5">
           <img
-            className="h-12 w-12 rounded-full object-cover ring-2 ring-slate-100"
+            className="post-avatar-ring"
             src={user.avatar}
-            alt="user avatar"
+            alt={user.name}
             loading="lazy"
           />
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-0.5">
             {userData._id === user._id ? (
-              <Link to="/profile" className="text-base font-semibold capitalize text-slate-900 hover:underline md:text-lg">
+              <Link to="/profile" className="post-author-name capitalize">
                 {user.name}
               </Link>
             ) : (
-              <Link
-                to={`/user/${user._id}`}
-                className="text-base font-semibold capitalize text-slate-900 hover:underline md:text-lg"
-              >
+              <Link to={`/user/${user._id}`} className="post-author-name capitalize">
                 {user.name}
               </Link>
             )}
-            <Link
-              to={`/community/${community.name}`}
-              className="text-xs text-slate-500 hover:text-primary"
-            >
+            <Link to={`/community/${community.name}`} className="post-community-badge">
+              <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <circle cx="6" cy="6" r="4"/>
+              </svg>
               {community.name}
             </Link>
           </div>
         </div>
-        <p className="text-xs text-slate-500">{createdAt}</p>
+        <span className="post-time">{createdAt}</span>
       </div>
-      <div>
-        <p
-          onClick={() => {
-            navigate(`/post/${post._id}`, {
-              state: { from: location.pathname },
-            });
-          }}
-          className="my-4 cursor-pointer break-words text-[15px] leading-relaxed text-slate-800"
-        >
-          {content}
-        </p>
-        <div className="mt-4">
-          {fileUrl && fileType === "image" ? (
-            <PhotoProvider
-              overlayRender={() => (
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-10 text-white px-3 py-2">
-                  <p className="text-xs">{user.name}</p>
-                  <p className="text-xs">{community.name}</p>
-                  <p className="text-xs">{createdAt}</p>
-                </div>
-              )}
-            >
-              <PhotoView src={fileUrl}>
-                <div className="w-full aspect-w-1 aspect-h-1">
-                  <img
-                    src={fileUrl}
-                    alt={content}
-                    loading="lazy"
-                    className="cursor-pointer rounded-xl object-cover ring-1 ring-slate-200"
-                  />
-                </div>
-              </PhotoView>
-            </PhotoProvider>
-          ) : (
-            fileUrl && (
-              <div className="w-full aspect-w-16 aspect-h-9">
-                <video
-                  className="block mx-auto rounded-xl ring-1 ring-slate-200 focus:outline-none"
-                  src={fileUrl}
-                  controls
-                />
-              </div>
-            )
+
+      <p
+        className="post-body"
+        onClick={() => navigate(`/post/${post._id}`, { state: { from: location.pathname } })}
+      >
+        {content}
+      </p>
+
+      {fileUrl && fileType === "image" && (
+        <PhotoProvider
+          overlayRender={() => (
+            <div className="absolute bottom-0 left-0 right-0 bg-black/40 text-white px-3 py-2">
+              <p className="text-xs">{user.name} · {community.name} · {createdAt}</p>
+            </div>
           )}
+        >
+          <PhotoView src={fileUrl}>
+            <div className="post-img-wrap">
+              <img src={fileUrl} alt={content} loading="lazy" />
+            </div>
+          </PhotoView>
+        </PhotoProvider>
+      )}
+
+      {fileUrl && fileType !== "image" && (
+        <div className="post-img-wrap">
+          <video
+            className="w-full rounded-none focus:outline-none"
+            src={fileUrl}
+            controls
+          />
         </div>
-      </div>
-      <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3">
-        <div className="flex items-center gap-4">
+      )}
+
+      <div className="post-actions-bar">
+        <div className="post-action-group">
           <Like post={post} />
 
           <button
-            className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
-            onClick={() => {
-              navigate(`/post/${post._id}`, {
-                state: { from: location.pathname },
-              });
-            }}
+            className="post-action-btn"
+            onClick={() => navigate(`/post/${post._id}`, { state: { from: location.pathname } })}
           >
-            <HiOutlineChatBubbleOvalLeft className="text-xl" />
-            <span className="text-sm">{comments.length}</span>
+            <HiOutlineChatBubbleOvalLeft style={{ width: 16, height: 16 }} />
+            <span className="post-action-count">{comments.length}</span>
           </button>
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex items-center gap-1.5">
           {userData?._id === post.user._id && (
             <Tooltip text="Delete post">
               <button
                 onClick={() => toggleModal(true)}
-                className="inline-flex items-center justify-center rounded-lg p-2 text-red-500 transition hover:bg-red-50"
+                className="post-delete-btn"
               >
-                <HiOutlineArchiveBox className="text-xl" />
+                <HiOutlineArchiveBox style={{ width: 14, height: 14 }} />
+                Delete
               </button>
             </Tooltip>
           )}

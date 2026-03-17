@@ -12,11 +12,25 @@ const MemoizedPost = memo(Post);
 
 const LoadMoreButton = ({ onClick, isLoading }) => (
   <button
-    className="my-4 inline-flex w-full items-center justify-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 disabled:cursor-not-allowed disabled:opacity-70"
+    className="load-more-btn"
     onClick={onClick}
     disabled={isLoading}
   >
-    {isLoading ? "Loading..." : "Load More Posts"}
+    {isLoading ? (
+      <>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin">
+          <path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3"/>
+        </svg>
+        Loading posts...
+      </>
+    ) : (
+      <>
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M8 3v10M4 9l4 4 4-4"/>
+        </svg>
+        Load more posts
+      </>
+    )}
   </button>
 );
 
@@ -61,6 +75,26 @@ const MainSection = ({ userData }) => {
   }
   return (
     <>
+      <div className="welcome-banner">
+        <p className="welcome-kicker">Dashboard</p>
+        <h1 className="welcome-title">
+          Welcome back, {userData?.name?.split(" ")[0] || "User"} 👋
+        </h1>
+        <p className="welcome-subtitle">
+          Catch up with posts from your joined communities and keep the conversation going.
+        </p>
+        <div className="welcome-stats">
+          <div className="welcome-stat">
+            <div className="welcome-stat-val">{posts.length}</div>
+            <div className="welcome-stat-label">Posts</div>
+          </div>
+          <div className="welcome-stat">
+            <div className="welcome-stat-val">{totalPosts}</div>
+            <div className="welcome-stat-label">Total</div>
+          </div>
+        </div>
+      </div>
+
       <div className="space-y-5">{memoizedPosts}</div>
 
       {posts.length > 0 && posts.length < totalPosts && (
@@ -71,14 +105,18 @@ const MainSection = ({ userData }) => {
       )}
 
       {posts.length === 0 && (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 text-center shadow-sm md:p-8">
-          <p className="py-2 text-sm font-semibold text-slate-800">
-            No posts to show. Join a community and post something.
+        <div className="feed-empty">
+          <div className="feed-empty-icon">💬</div>
+          <h3 className="feed-empty-title">Your feed is empty</h3>
+          <p className="feed-empty-sub">
+            Join a community and start posting — your feed will come alive here.
           </p>
-          <p className="mb-4 text-xs text-slate-500">
-            Your feed will appear here once you join communities.
-          </p>
-          <img loading="lazy" src={Home} alt="no post" className="max-w-sm rounded-xl border border-slate-200 shadow-sm" />
+          <img
+            loading="lazy"
+            src={Home}
+            alt="empty feed"
+            className="feed-empty-img"
+          />
         </div>
       )}
     </>

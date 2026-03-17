@@ -40,7 +40,7 @@ const Rightbar = () => {
   );
 
   const visibleCommunities = useMemo(
-    () => notJoinedCommunities || [],
+    () => (notJoinedCommunities || []).slice(0, 4),
     [notJoinedCommunities]
   );
 
@@ -78,16 +78,9 @@ const Rightbar = () => {
     <aside className="rightbar overflow-auto" aria-label="Suggestions">
       {currentLocation !== "/communities" && (
         <section className="rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
-          <div className="mb-4 flex items-end justify-between">
-            <h5 className="text-sm font-semibold text-slate-800 md:text-base">
-              Suggested communities
-            </h5>
-            <Link
-              className="text-xs font-semibold text-primary hover:underline"
-              to="/communities"
-            >
-              View all
-            </Link>
+          <div className="widget-header">
+            <h5 className="widget-title">Suggested communities</h5>
+            <Link className="widget-link" to="/communities">View all</Link>
           </div>
 
           {notJoinedCommunitiesFetched && visibleCommunities.length === 0 && (
@@ -99,31 +92,28 @@ const Rightbar = () => {
             {visibleCommunities?.map((community) => (
               <li
                 key={community._id}
-                className="flex items-center justify-between rounded-2xl border border-slate-200 bg-white/95 px-3 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                className="rightbar-community-row"
               >
-                <div className="flex items-center">
+                <div className="rightbar-community-main">
                   <img
                     src={community.banner || placeholder}
-                    className="mr-3 h-8 w-8 rounded-full object-cover"
+                    className="rightbar-community-img"
                     alt="community"
                   />
-                  <div className="flex flex-col font-medium">
-                    <p className="line-clamp-1 text-sm text-slate-800">
-                      {community.name}
-                    </p>
-
-                    <p className="mt-0.5 flex items-center gap-1 text-xs text-gray-500">
-                      <IoMdPeople />
-                      {community.members.length}
-                    </p>
+                  <div className="flex flex-col min-w-0">
+                    <p className="rightbar-community-name">{community.name}</p>
+                    <div className="rightbar-community-members">
+                      <IoMdPeople style={{ fontSize: 10, flexShrink: 0 }} />
+                      <span>{community.members.length}</span>
+                    </div>
                   </div>
                 </div>
 
                 <button
                   onClick={() => toggleJoinModal(community._id, true)}
-                  className="group rounded-xl border border-dashed border-primary px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                  className="rightbar-join-btn"
                 >
-                  <p className="flex items-center gap-1 group-hover:text-white">
+                  <p className="flex items-center gap-1">
                     <IoIosPeople className="inline-block text-lg" />
                     Join
                   </p>
@@ -141,9 +131,9 @@ const Rightbar = () => {
 
       <hr className="my-4 border-slate-200" />
       <section className="rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
-        <h5 className="mb-3 text-sm font-semibold text-slate-800 md:text-base">
-          Popular users to follow
-        </h5>
+        <div className="widget-header">
+          <h5 className="widget-title">Popular users to follow</h5>
+        </div>
 
       {publicUsersFetched && recommendedUsers?.length === 0 && (
         <div className="text-center text-xs italic text-slate-400">
@@ -170,8 +160,9 @@ const Rightbar = () => {
                   >
                     {user.name}
                   </Link>
-                  <div className="text-xs text-slate-400">
-                    Followers: {user.followerCount}
+                  <div className="rightbar-user-followers">
+                    <BsPersonPlusFill style={{ fontSize: 9, flexShrink: 0 }} />
+                    <span>Followers: {user.followerCount}</span>
                   </div>
                 </div>
               </div>

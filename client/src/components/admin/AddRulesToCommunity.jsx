@@ -111,10 +111,15 @@ const AddRulesToCommunity = () => {
   }
 
   return (
-    <div className="admin-content-card">
-      <div className="admin-header-row">
-        <FaLink className="admin-header-icon" />
-        <h2 className="admin-page-title">Add Rules to Community</h2>
+    <div className="admin-content-card add-rules-community-shell">
+      <div className="add-rules-community-head">
+        <div className="add-rules-community-head-icon">
+          <FaLink className="admin-header-icon" />
+        </div>
+        <div>
+          <h2 className="add-rules-community-title">Add Rules to Community</h2>
+          <p className="add-rules-community-sub">Assign selected moderation rules to a target community</p>
+        </div>
       </div>
 
       {message.text && (
@@ -154,7 +159,7 @@ const AddRulesToCommunity = () => {
           </select>
         </div>
 
-        <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg">
+        <div className="add-rules-community-toggle-row">
           <input
             type="checkbox"
             id="useAllRules"
@@ -173,11 +178,17 @@ const AddRulesToCommunity = () => {
             <label className="admin-field-label mb-2">
               Select Rules *
             </label>
-            <div className="border rounded-lg p-4 max-h-64 overflow-y-auto space-y-2">
+            <div
+              className="add-rules-community-rules-wrap"
+              style={{
+                maxHeight: rules.length > 8 ? "420px" : "none",
+                overflowY: rules.length > 8 ? "auto" : "visible"
+              }}
+            >
               {rules.map((rule) => (
                 <label
                   key={rule._id}
-                  className="admin-entity-item flex items-start gap-2 cursor-pointer"
+                  className="admin-entity-item add-rules-community-rule-item"
                 >
                   <input
                     type="checkbox"
@@ -186,14 +197,14 @@ const AddRulesToCommunity = () => {
                     className="mt-1 admin-checkbox"
                   />
                   <div className="flex-1">
-                    <p className="font-medium text-sm text-gray-800">{rule.rule}</p>
-                    <p className="text-xs text-gray-600 mt-1">{rule.description}</p>
+                    <p className="add-rules-community-rule-title">{rule.rule}</p>
+                    <p className="add-rules-community-rule-desc">{rule.description}</p>
                   </div>
                 </label>
               ))}
             </div>
             {formData.ruleIds.length > 0 && (
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="add-rules-community-count">
                 {formData.ruleIds.length} rule(s) selected
               </p>
             )}
