@@ -46,7 +46,7 @@ const DevicesLocations = () => {
 
   if (!userPreferences || !contextAuthData) {
     return (
-      <div className="bg-white border p-5 text-gray-700 text-center main-section">
+      <div className="main-section text-center text-gray-700">
         <p className="text-lg font-semibold mb-4">
           Context-based authentication is currently disabled for your account.
         </p>

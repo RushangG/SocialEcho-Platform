@@ -74,7 +74,7 @@ const MainSection = ({ userData }) => {
     );
   }
   return (
-    <>
+    <div className="flex flex-col gap-3">
       <div className="welcome-banner">
         <p className="welcome-kicker">Dashboard</p>
         <h1 className="welcome-title">
@@ -95,7 +95,7 @@ const MainSection = ({ userData }) => {
         </div>
       </div>
 
-      <div className="space-y-5">{memoizedPosts}</div>
+      <div className="flex flex-col gap-3">{memoizedPosts}</div>
 
       {posts.length > 0 && posts.length < totalPosts && (
         <LoadMoreButton
@@ -119,7 +119,7 @@ const MainSection = ({ userData }) => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

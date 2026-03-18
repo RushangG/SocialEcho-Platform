@@ -26,10 +26,10 @@ const Post = ({ post }) => {
 
   return (
     <article className="post-card">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2.5">
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
           <img
-            className="post-avatar-ring"
+            className="avatar-sm"
             src={user.avatar}
             alt={user.name}
             loading="lazy"
@@ -56,7 +56,7 @@ const Post = ({ post }) => {
       </div>
 
       <p
-        className="post-body"
+        className="cursor-pointer text-sm leading-relaxed text-slate-700 transition hover:text-slate-900"
         onClick={() => navigate(`/post/${post._id}`, { state: { from: location.pathname } })}
       >
         {content}

@@ -24,14 +24,13 @@ const AllCommunities = () => {
   }
 
   return (
-    <div className="user-page-shell">
+    <div className="flex flex-col gap-4">
       <div className="user-page-head">
-        <p className="user-page-kicker">Communities</p>
-        <h1 className="user-page-title">Discover Communities</h1>
+        <p className="user-page-title">Discover Communities</p>
         <p className="user-page-subtitle">Find spaces that match your interests and join new conversations.</p>
       </div>
 
-      <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {notJoinedCommunities?.map((community) => (
           <CommunityCard key={community._id} community={community} />
         ))}

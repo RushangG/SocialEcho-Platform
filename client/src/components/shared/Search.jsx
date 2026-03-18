@@ -160,7 +160,7 @@ const Search = () => {
         />
         {inputValue !== "" && (
           <button
-            className="absolute top-0 right-0 h-full w-10 flex items-center justify-center text-gray-400 hover:text-gray-600"
+            className="absolute right-0 top-0 flex h-full w-10 items-center justify-center text-slate-400 hover:text-slate-200"
             onClick={clearValues}
           >
             <MdClear />
@@ -171,7 +171,7 @@ const Search = () => {
       {inputValue !== "" && (
         <div
           onBlur={() => !community && clearValues()}
-          className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-lg"
+          className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl"
         >
           {loading && (
             <div className="flex items-center justify-center py-2 px-2">

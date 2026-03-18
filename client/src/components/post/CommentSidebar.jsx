@@ -17,7 +17,7 @@ const CommentSidebar = ({ comments }) => {
   };
 
   return (
-    <aside className="col-span-1 h-auto overflow-y-auto rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm md:sticky md:top-20 md:h-[85vh]" aria-label="Comments">
+    <aside className="col-span-1 h-auto overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-lg md:sticky md:top-20 md:h-[85vh]" aria-label="Comments">
       {currentComments.length > 0 && (
         <div>
           <h2 className="mb-4 border-b border-slate-200 py-2 text-center text-sm font-semibold text-slate-800">
@@ -26,13 +26,13 @@ const CommentSidebar = ({ comments }) => {
           {currentComments.map((comment) => (
             <div
               key={comment._id}
-              className="flex w-full flex-col border-b border-slate-100 p-3"
+              className="flex w-full flex-col gap-2 rounded-xl p-3 transition hover:bg-slate-50"
             >
-              <div className="flex gap-1">
+              <div className="flex gap-3">
                 <img
                   src={comment.user.avatar}
                   alt="User Avatar"
-                  className="h-8 w-8 rounded-full object-cover ring-2 ring-slate-100"
+                  className="avatar-sm"
                 />
 
                 <div className="flex flex-col">
@@ -46,7 +46,7 @@ const CommentSidebar = ({ comments }) => {
                   </p>
                 </div>
               </div>
-              <p className="mt-2 break-words whitespace-normal text-sm text-slate-700">
+              <p className="break-words whitespace-normal text-sm text-slate-700">
                 {comment.content}
               </p>
             </div>
