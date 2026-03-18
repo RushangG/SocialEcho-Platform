@@ -120,6 +120,26 @@ const communityReducer = (state = initialState, action) => {
         communityError: payload,
       };
 
+    case types.DELETE_RULE_FROM_COMMUNITY_SUCCESS:
+      return {
+        ...state,
+        communityData: state.communityData
+          ? {
+            ...state.communityData,
+            rules: state.communityData.rules.filter(
+              (rule) => rule._id !== payload
+            ),
+          }
+          : null,
+        communityError: null,
+      };
+
+    case types.DELETE_RULE_FROM_COMMUNITY_FAIL:
+      return {
+        ...state,
+        communityError: payload,
+      };
+
     default:
       return state;
   }

@@ -302,6 +302,29 @@ export const joinCommunityAndFetchData =
     }
   };
 
+export const deleteRuleFromCommunityAction =
+  (communityName, ruleId) => async (dispatch) => {
+    try {
+      const { error } = await api.deleteRuleFromCommunity(communityName, ruleId);
+      if (error) {
+        throw new Error(error);
+      }
+      dispatch({
+        type: types.DELETE_RULE_FROM_COMMUNITY_SUCCESS,
+        payload: ruleId,
+        meta: { requiresAuth: true },
+      });
+      // Refresh community to keep rules list in sync
+      dispatch(getCommunityAction(communityName));
+    } catch (error) {
+      dispatch({
+        type: types.DELETE_RULE_FROM_COMMUNITY_FAIL,
+        payload: error.message,
+        meta: { requiresAuth: true },
+      });
+    }
+  };
+
 export const leaveFetchData = (communityName) => async (dispatch) => {
   try {
     await dispatch(leaveCommunityAction(communityName));

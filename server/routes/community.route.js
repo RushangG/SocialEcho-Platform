@@ -18,6 +18,7 @@ const {
   createCommunity,
   addRulesToCommunity,
   addRules,
+  deleteRuleFromCommunity,
   addModToCommunity,
 } = require("../controllers/community.controller");
 
@@ -43,6 +44,7 @@ router.post("/:name/add-all-rules", addRulesToCommunity);
 router.post("/:name", createCommunity);
 
 router.delete("/reported-posts/:postId", removeReportedPost);
+router.delete("/:name/rules/:ruleId", deleteRuleFromCommunity);
 
 router.patch("/:name/add-moderators", addModToCommunity);
 

@@ -83,6 +83,35 @@ const addRulesToCommunity = async (req, res) => {
 };
 
 /**
+ * Removes a specific rule from a community and deletes the rule document.
+ *
+ * @route DELETE /communities/:name/rules/:ruleId
+ * @param {string} req.params.name - The name of the community.
+ * @param {string} req.params.ruleId - The ID of the rule to delete.
+ */
+const deleteRuleFromCommunity = async (req, res) => {
+  try {
+    const { name, ruleId } = req.params;
+
+    const community = await Community.findOne({ name });
+    if (!community) {
+      return res.status(404).json({ message: "Community not found" });
+    }
+
+    // Only remove the rule reference from the community's rules array
+    await Community.findOneAndUpdate(
+      { name },
+      { $pull: { rules: ruleId } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: "Rule removed from community successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing rule from community" });
+  }
+};
+
+/**
  * Retrieves all communities that a user is a member of, including the community's ID,
  * name, banner image, member count, and description.
  *
@@ -319,7 +348,7 @@ const reportPost = async (req, res) => {
     }
 
     const reportedPost = await Report.findOne({
-      post: {$eq: postId},
+      post: { $eq: postId },
     });
 
     if (reportedPost) {
@@ -514,6 +543,7 @@ module.exports = {
   createCommunity,
   addRulesToCommunity,
   addRules,
+  deleteRuleFromCommunity,
   getNotMemberCommunities,
   getMemberCommunities,
   joinCommunity,
