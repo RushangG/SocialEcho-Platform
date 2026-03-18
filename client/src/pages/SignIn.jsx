@@ -108,7 +108,7 @@ const SignIn = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   onFocus={() => setFocused("password")}
                   onBlur={() => setFocused("")}
-                  className="auth-input" placeholder="••••••••" required autoComplete="off"
+                  className="auth-input" placeholder="Enter your password" required autoComplete="off"
                 />
                 <button
                   type="button"

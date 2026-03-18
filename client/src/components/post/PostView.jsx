@@ -192,10 +192,10 @@ const PostView = ({ post, userData }) => {
         showModal={showModal}
         postId={post._id}
         onClose={() => toggleModal(false)}
-        prevPath={location.state.from || "/"}
+        prevPath={location.state?.from || "/"}
       />
 
-      <ReportPostModal
+      <ReportPostModal 
         isOpen={isReportModalOpen}
         onClose={handleReportClose}
         postId={post._id}

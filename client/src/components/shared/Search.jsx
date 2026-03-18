@@ -64,16 +64,16 @@ const Search = () => {
 
     if (value === "") {
       setInitialValue();
-      return;
     }
-
-    debouncedHandleSearch(value);
   };
 
   useEffect(() => {
     if (inputValue.trim() === "") return;
     debouncedHandleSearch(inputValue);
-  }, [searchType]); // re-run search when type changes
+    return () => {
+      debouncedHandleSearch.cancel();
+    };
+  }, [debouncedHandleSearch, inputValue]); // re-run search when query or type changes
 
   const clearValues = () => {
     setInitialValue();
