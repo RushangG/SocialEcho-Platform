@@ -11,6 +11,7 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 const Search = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
+  const [searchType, setSearchType] = useState("all"); // 'post' | 'user' | 'community' | 'all'
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [community, setCommunity] = useState(null);
@@ -31,12 +32,17 @@ const Search = () => {
         setLoading(true);
         const encodedQuery = encodeURIComponent(q);
         axios
-          .get(`${BASE_URL}/search?q=${encodedQuery}`, {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          })
+          .get(
+            `${BASE_URL}/search?q=${encodedQuery}&type=${encodeURIComponent(
+              searchType
+            )}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((res) => {
             const { posts, users, community, joinedCommunity } = res.data;
             setPosts(posts);
@@ -49,7 +55,7 @@ const Search = () => {
             setLoading(false);
           });
       }, 800),
-    [accessToken]
+    [accessToken, searchType]
   );
 
   const handleInputChange = (e) => {
@@ -63,6 +69,11 @@ const Search = () => {
 
     debouncedHandleSearch(value);
   };
+
+  useEffect(() => {
+    if (inputValue.trim() === "") return;
+    debouncedHandleSearch(inputValue);
+  }, [searchType]); // re-run search when type changes
 
   const clearValues = () => {
     setInitialValue();
@@ -82,13 +93,67 @@ const Search = () => {
 
   return (
     <div className="relative w-full">
+      <div className="mb-1 flex gap-1 text-xs font-medium text-slate-600">
+        <button
+          type="button"
+          onClick={() => setSearchType("post")}
+          className={`rounded-full px-3 py-1 transition ${
+            searchType === "post"
+              ? "bg-blue-600 text-white"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+          }`}
+        >
+          Posts
+        </button>
+        <button
+          type="button"
+          onClick={() => setSearchType("user")}
+          className={`rounded-full px-3 py-1 transition ${
+            searchType === "user"
+              ? "bg-blue-600 text-white"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+          }`}
+        >
+          Users
+        </button>
+        <button
+          type="button"
+          onClick={() => setSearchType("community")}
+          className={`rounded-full px-3 py-1 transition ${
+            searchType === "community"
+              ? "bg-blue-600 text-white"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+          }`}
+        >
+          Communities
+        </button>
+        <button
+          type="button"
+          onClick={() => setSearchType("all")}
+          className={`ml-auto rounded-full px-3 py-1 transition ${
+            searchType === "all"
+              ? "bg-slate-900 text-white"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+          }`}
+        >
+          All
+        </button>
+      </div>
       <div className="relative">
         <input
           type="text"
           id="search"
           value={inputValue}
           onChange={handleInputChange}
-          placeholder="Search for people, posts or communities"
+          placeholder={
+            searchType === "user"
+              ? "Search for users (e.g. A...)"
+              : searchType === "post"
+              ? "Search for posts"
+              : searchType === "community"
+              ? "Search for communities (e.g. A...)"
+              : "Search for people, posts or communities"
+          }
           className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50/80 py-1 pl-4 pr-10 text-sm shadow-inner transition duration-300 placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-100"
           aria-label="Search"
           autoComplete="off"
