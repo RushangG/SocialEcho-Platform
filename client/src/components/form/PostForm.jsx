@@ -145,7 +145,7 @@ const PostForm = ({ communityId, communityName }) => {
         confirmationToken={confirmationToken}
       />
 
-      <form onSubmit={handleSubmit} className="rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-sm">
+      <form onSubmit={handleSubmit} className="post-card">
         <div className="mb-4">
           <label
             htmlFor="content"
@@ -154,7 +154,7 @@ const PostForm = ({ communityId, communityName }) => {
             Share something with your community
           </label>
           <textarea
-            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
+            className="w-full resize-none rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
             name="content"
             id="content"
             value={formData.content}
@@ -166,10 +166,7 @@ const PostForm = ({ communityId, communityName }) => {
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="file"
-            className="mx-auto mt-2 flex cursor-pointer items-center rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-center transition hover:border-blue-400 hover:bg-blue-50"
-          >
+          <label htmlFor="file" className="mx-auto mt-2 flex cursor-pointer items-center rounded-xl border border-dashed border-slate-300 bg-slate-50 px-3 py-3 text-center transition hover:border-blue-400 hover:bg-blue-50">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-slate-400"
@@ -232,7 +229,7 @@ const PostForm = ({ communityId, communityName }) => {
 
         <div className="flex justify-end">
           <button
-            className={`inline-flex items-center rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100 ${
+            className={`btn-primary ${
               formData.loading ? "cursor-not-allowed opacity-70" : ""
             }`}
             type="submit"

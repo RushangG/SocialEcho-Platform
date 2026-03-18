@@ -42,36 +42,39 @@ const Navbar = ({ userData, toggleLeftbar, showLeftbar }) => {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-40 mb-3 bg-slate-50/70 px-2 pt-2 backdrop-blur md:px-4 md:pt-3">
-      <div className="mx-auto flex w-full max-w-[1800px] items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white/95 px-3 py-2 shadow-sm md:px-5 md:py-3">
+    <nav className="sticky top-0 z-40 bg-[#0F172A] shadow-md">
+      <div className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between gap-4 px-4 py-0">
         <div className="flex items-center gap-3">
           <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-700 bg-slate-800 text-slate-300 transition hover:bg-slate-700 md:hidden"
             onClick={toggleLeftbar}
           >
             {showLeftbar ? <RxCross1 /> : <AiOutlineBars />}
           </button>
-          <Link to="/" className="hidden md:inline-flex items-center gap-2">
+          <Link to="/" className="inline-flex items-center gap-2">
             <img className="w-36" src={Logo} alt="SocialEcho" />
           </Link>
         </div>
 
         <div className="flex flex-1 items-center justify-center md:justify-center">
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-xl">
             <Search />
           </div>
         </div>
 
-        <div className="relative flex justify-end md:w-40">
+        <div className="relative flex items-center justify-end gap-2 md:w-44">
+          <span className="hidden text-sm font-semibold text-slate-200 md:inline-flex">
+            {userData?.name?.split(" ")?.[0] || "User"}
+          </span>
           <button
             type="button"
-            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow"
+            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-slate-700 bg-slate-800 transition hover:ring-2 hover:ring-slate-500"
             onClick={handleProfileClick}
           >
             <img
               src={userData.avatar}
               alt="profile"
-              className="h-10 w-10 rounded-xl object-cover"
+              className="h-9 w-9 rounded-full object-cover"
             />
           </button>
           <Transition
@@ -86,7 +89,7 @@ const Navbar = ({ userData, toggleLeftbar, showLeftbar }) => {
             {() => (
               <div
                 ref={dropdownRef}
-                className="absolute right-0 top-11 mt-2 w-72 origin-top-right rounded-2xl border border-slate-200 bg-white/95 shadow-lg ring-1 ring-slate-900/5 focus:outline-none"
+                className="absolute right-0 top-11 mt-2 w-72 origin-top-right rounded-xl border border-slate-200 bg-white shadow-2xl ring-1 ring-slate-900/5 focus:outline-none"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu"

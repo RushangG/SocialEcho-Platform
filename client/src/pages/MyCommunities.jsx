@@ -40,13 +40,12 @@ const MyCommunities = () => {
   }
 
   return (
-    <div className="user-page-shell">
+    <div className="flex flex-col gap-4">
       <div className="user-page-head">
-        <p className="user-page-kicker">Membership</p>
-        <h1 className="user-page-title">Your Communities</h1>
+        <p className="user-page-title">Your Communities</p>
         <p className="user-page-subtitle">Quick access to the communities you are already part of.</p>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">{communityCards}</div>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">{communityCards}</div>
     </div>
   );
 };

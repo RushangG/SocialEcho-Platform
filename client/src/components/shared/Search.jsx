@@ -93,88 +93,56 @@ const Search = () => {
 
   return (
     <div className="relative w-full">
-      <div className="mb-1 flex gap-1 text-xs font-medium text-slate-600">
-        <button
-          type="button"
-          onClick={() => setSearchType("post")}
-          className={`rounded-full px-3 py-1 transition ${
-            searchType === "post"
-              ? "bg-blue-600 text-white"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-          }`}
+      <div className="flex items-center gap-2">
+        <div className="relative min-w-0 flex-[1.2]">
+          <input
+            type="text"
+            id="search"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder={
+              searchType === "user"
+                ? "Search People"
+                : searchType === "post"
+                ? "Search posts"
+                : searchType === "community"
+                ? "Search communities"
+                : "Search people, posts or communities"
+            }
+            className="h-10 w-full rounded-xl border border-slate-600 bg-slate-800/90 py-1 pl-4 pr-10 text-sm text-slate-100 shadow-inner transition duration-300 placeholder:text-slate-300 focus:border-blue-400 focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-300/30"
+            aria-label="Search"
+            autoComplete="off"
+          />
+          {inputValue !== "" && (
+            <button
+              className="absolute right-0 top-0 flex h-full w-10 items-center justify-center text-slate-300 transition hover:text-white"
+              onClick={clearValues}
+            >
+              <MdClear />
+            </button>
+          )}
+        </div>
+
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          className="h-10 w-[132px] rounded-xl border border-slate-600 bg-slate-800 px-2.5 text-sm font-semibold text-slate-100 outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-300/30 sm:w-[140px]"
+          aria-label="Search type"
         >
-          Posts
-        </button>
-        <button
-          type="button"
-          onClick={() => setSearchType("user")}
-          className={`rounded-full px-3 py-1 transition ${
-            searchType === "user"
-              ? "bg-blue-600 text-white"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-          }`}
-        >
-          Users
-        </button>
-        <button
-          type="button"
-          onClick={() => setSearchType("community")}
-          className={`rounded-full px-3 py-1 transition ${
-            searchType === "community"
-              ? "bg-blue-600 text-white"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-          }`}
-        >
-          Communities
-        </button>
-        <button
-          type="button"
-          onClick={() => setSearchType("all")}
-          className={`ml-auto rounded-full px-3 py-1 transition ${
-            searchType === "all"
-              ? "bg-slate-900 text-white"
-              : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-          }`}
-        >
-          All
-        </button>
-      </div>
-      <div className="relative">
-        <input
-          type="text"
-          id="search"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder={
-            searchType === "user"
-              ? "Search for users (e.g. A...)"
-              : searchType === "post"
-              ? "Search for posts"
-              : searchType === "community"
-              ? "Search for communities (e.g. A...)"
-              : "Search for people, posts or communities"
-          }
-          className="h-11 w-full rounded-xl border border-slate-200 bg-slate-50/80 py-1 pl-4 pr-10 text-sm shadow-inner transition duration-300 placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-100"
-          aria-label="Search"
-          autoComplete="off"
-        />
-        {inputValue !== "" && (
-          <button
-            className="absolute top-0 right-0 h-full w-10 flex items-center justify-center text-gray-400 hover:text-gray-600"
-            onClick={clearValues}
-          >
-            <MdClear />
-          </button>
-        )}
+          <option value="all">All</option>
+          <option value="user">People</option>
+          <option value="post">Posts</option>
+          <option value="community">Communities</option>
+        </select>
       </div>
 
       {inputValue !== "" && (
         <div
           onBlur={() => !community && clearValues()}
-          className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 w-full overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-lg"
+          className="absolute left-0 right-0 top-[calc(100%+0.5rem)] z-50 w-full max-h-[60vh] overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-2xl"
         >
           {loading && (
-            <div className="flex items-center justify-center py-2 px-2">
+            <div className="flex items-center justify-center px-2 py-2 text-sm text-slate-600">
               <MoonLoader size={20} color={"#008cff"} />
               <span className="ml-2">Searching...</span>
             </div>

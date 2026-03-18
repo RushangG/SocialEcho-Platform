@@ -50,42 +50,42 @@ const Rightbar = () => {
   }
 
   return (
-    <div className="bg-white rounded-md ">
-      <div className="flex flex-col ">
-        <h2 className="text-lg font-bold">{name}</h2>
-        <div className="flex items-center gap-2 text-primary mb-4">
-          <HiUserGroup />
-          <span className="mr-2">
-            {members?.length || 0}{" "}
-            {members?.length === 1 ? "member" : "members"}
-          </span>
+    <div className="flex flex-col gap-3">
+      <section className="widget-card mb-3">
+        <div className="widget-header">
+          <h2 className="widget-title">{name}</h2>
+          <div className="badge-pill badge-primary">
+            <HiUserGroup />
+            <span>
+              {members?.length || 0} {members?.length === 1 ? "member" : "members"}
+            </span>
+          </div>
         </div>
-      </div>
+        <div className="widget-body p-3">
+          {bannerLoaded ? (
+            <img
+              src={banner}
+              alt="community banner"
+              className="mb-3 h-40 w-full rounded-xl object-cover"
+              onError={(e) => {
+                e.target.src = placeholder;
+              }}
+            />
+          ) : (
+            <img
+              src={placeholder}
+              alt="community banner placeholder"
+              className="mb-3 h-40 w-full rounded-xl object-cover"
+            />
+          )}
 
-      {bannerLoaded ? (
-        <img
-          src={banner}
-          alt="community banner"
-          className="w-full h-40 rounded-md object-cover mb-4"
-          onError={(e) => {
-            e.target.src = placeholder;
-          }}
-        />
-      ) : (
-        <img
-          src={placeholder}
-          alt="community banner placeholder"
-          className="w-full h-40 rounded-md object-cover mb-4"
-        />
-      )}
+          <h3 className="text-sm text-slate-700">{description}</h3>
 
-      <h3>{description}</h3>
-
-      <div className="my-4">
+          <div className="my-4">
         {isModeratorOfThisCommunity && (
           <Link
             to={`/community/${communityName}/moderator`}
-            className="px-4 bg-primary text-white shadow-md shadow-gray-50 text-sm py-1 rounded-md flex justify-center items-center w-full my-2 hover:bg-primary-600"
+            className="btn-primary w-full"
           >
             Moderation Panel
           </Link>
@@ -94,7 +94,7 @@ const Rightbar = () => {
         {isModeratorUpdated && !isModeratorOfThisCommunity && (
           <button
             onClick={toggleLeaveModal}
-            className="px-4 shadow-md shadow-red-50 text-sm py-1 border border-red-400 hover:text-white hover:bg-red-400 text-red-400 rounded-md flex justify-center items-center w-full my-2"
+            className="btn-joined w-full"
           >
             Leave Community
           </button>
@@ -106,11 +106,15 @@ const Rightbar = () => {
             communityName={communityName}
           />
         }
-      </div>
+          </div>
+        </div>
+      </section>
       {rules && rules.length > 0 && (
-        <div className="text-slate-900 mb-4">
-          <span className="font-bold">Community Guidelines:</span>
-          <ul className="flex flex-col gap-2 ">
+        <section className="widget-card mb-3">
+          <div className="widget-header">
+            <span className="widget-title">Community Guidelines</span>
+          </div>
+          <ul className="widget-body flex list-decimal flex-col gap-2 pl-7 text-sm text-slate-700">
             {rules.map((rule) => (
               <li key={rule._id} className="flex items-start gap-2 ">
                 <HiOutlineCheckBadge className="text-lg flex-shrink-0 mt-1" />
@@ -118,7 +122,7 @@ const Rightbar = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
     </div>
   );

@@ -36,12 +36,34 @@ const Leftbar = ({ showLeftbar }) => {
 
   return (
     <aside
-      className={`${showLeftbar ? "" : "hidden"} leftbar`}
+      className={`${showLeftbar ? "" : "hidden md:block"} leftbar`}
       aria-label="Primary navigation"
     >
       <div className="flex h-full flex-col justify-start">
-        <div className="flex w-full flex-col gap-4 overflow-y-auto px-5 pb-5">
-          <div className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+        <div className="flex w-full flex-col gap-3 overflow-y-auto px-3 pb-3">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+            <div className="flex items-center gap-3">
+              <img
+                src={user?.avatar}
+                alt={user?.name || "User"}
+                className="avatar-md"
+              />
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Welcome back
+                </p>
+                <p className="truncate text-sm font-bold text-slate-800">
+                  {user?.name || "User"}
+                </p>
+              </div>
+            </div>
+            <hr className="my-3 border-slate-200" />
+            <Link className="text-xs font-semibold text-primary hover:underline" to="/profile">
+              View profile
+            </Link>
+          </div>
+
+          <div className="sidebar-section-label">
             Navigation
           </div>
           <nav className="flex flex-col gap-2 text-sm">
@@ -86,20 +108,19 @@ const Leftbar = ({ showLeftbar }) => {
             )}
           </nav>
 
-          <hr className="my-3 w-full border-slate-200" />
+          <hr className="my-2 w-full border-slate-200" />
 
-          <div className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          <div className="sidebar-section-label">
             Communities
           </div>
 
           {communityLinks && communityLinks.length > 0 ? (
-            <div className="w-full rounded-xl border border-slate-100 bg-slate-50/70 p-3">
-              <div className="mb-1 flex items-center justify-between">
-                <div className="flex items-center gap-1 text-sm font-medium text-slate-700">
+            <>
+              <div className="flex items-center justify-between px-3 mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+                <div className="flex items-center gap-1">
                   <HiOutlineUserGroup className="text-lg" />
                   <span>Joined</span>
                 </div>
-
                 <Link
                   className="relative flex items-center text-xs font-medium text-primary"
                   to="/my-communities"
@@ -110,7 +131,7 @@ const Leftbar = ({ showLeftbar }) => {
                   </span>
                 </Link>
               </div>
-              <ul className="mt-2 w-full space-y-1">
+              <ul className="w-full space-y-1">
                 {communityLinks.map((communityLink, index) => (
                   <li key={communityLink.href}>
                     <Link
@@ -123,7 +144,7 @@ const Leftbar = ({ showLeftbar }) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </>
           ) : (
             <div className="mt-1 text-sm text-slate-400">No communities found.</div>
           )}

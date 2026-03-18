@@ -12,35 +12,48 @@ const CommunityCard = ({ community }) => {
     }));
   };
   return (
-    <div className="flex justify-between rounded-2xl border border-slate-200 bg-white/95 px-4 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="w-full flex items-start">
+    <div className="community-card flex h-full flex-col">
+      <img
+        className="community-card-banner"
+        src={community.banner || placeholder}
+        alt="community banner"
+        loading="lazy"
+      />
+
+      <div className="community-card-body flex flex-1 flex-col">
+        <div className="flex min-w-0 items-start gap-3">
         <img
-          className="mr-4 h-11 w-11 rounded-full object-cover ring-2 ring-slate-100"
+          className="community-avatar-md"
           src={community.banner || placeholder}
           alt="community banner"
           loading="lazy"
         />
-        <div className="">
-          <h4 className="line-clamp-1 text-base font-semibold text-slate-900">{community.name}</h4>
-          <p className="text-sm text-slate-600">
-            {community.members.length} members
+        <div className="min-w-0">
+          <h4 className="community-card-name line-clamp-2 break-words">
+            {community.name}
+          </h4>
+          <p className="community-card-desc mb-0">
+            {community.members?.length || 0} members
           </p>
         </div>
       </div>
 
-      <div className="">
+      <div className="mt-4 flex justify-end">
         <button
           onClick={() => toggleJoinModal(community._id, true)}
-          className="group rounded-xl border border-primary bg-primary px-2.5 py-2.5 transition duration-300 hover:bg-transparent"
+          className="btn-follow"
         >
-          <MdOutlineGroupAdd className="text-lg text-white group-hover:text-primary" />
+          <MdOutlineGroupAdd className="text-lg" />
+          <span>Join</span>
         </button>
-        <JoinModal
-          show={joinModalVisibility[community._id] || false}
-          onClose={() => toggleJoinModal(community._id, false)}
-          community={community}
-        />
       </div>
+      </div>
+
+      <JoinModal
+        show={joinModalVisibility[community._id] || false}
+        onClose={() => toggleJoinModal(community._id, false)}
+        community={community}
+      />
     </div>
   );
 };

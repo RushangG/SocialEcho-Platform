@@ -77,11 +77,12 @@ const Rightbar = () => {
   return (
     <aside className="rightbar overflow-auto" aria-label="Suggestions">
       {currentLocation !== "/communities" && (
-        <section className="rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
+        <section className="widget-card mb-3">
           <div className="widget-header">
-            <h5 className="widget-title">Suggested communities</h5>
+            <h5 className="widget-title">Communities to Join</h5>
             <Link className="widget-link" to="/communities">View all</Link>
           </div>
+          <div className="widget-body">
 
           {notJoinedCommunitiesFetched && visibleCommunities.length === 0 && (
             <div className="text-center text-xs italic text-slate-400">
@@ -92,12 +93,12 @@ const Rightbar = () => {
             {visibleCommunities?.map((community) => (
               <li
                 key={community._id}
-                className="rightbar-community-row"
+                className="sidebar-row justify-between"
               >
-                <div className="rightbar-community-main">
+                <div className="flex min-w-0 items-center gap-2">
                   <img
                     src={community.banner || placeholder}
-                    className="rightbar-community-img"
+                    className="community-avatar-sm"
                     alt="community"
                   />
                   <div className="flex flex-col min-w-0">
@@ -111,7 +112,7 @@ const Rightbar = () => {
 
                 <button
                   onClick={() => toggleJoinModal(community._id, true)}
-                  className="rightbar-join-btn"
+                  className="btn-follow"
                 >
                   <p className="flex items-center gap-1">
                     <IoIosPeople className="inline-block text-lg" />
@@ -126,14 +127,15 @@ const Rightbar = () => {
               </li>
             ))}
           </ul>
+          </div>
         </section>
       )}
 
-      <hr className="my-4 border-slate-200" />
-      <section className="rounded-2xl border border-slate-100 bg-slate-50/70 p-3">
+      <section className="widget-card">
         <div className="widget-header">
-          <h5 className="widget-title">Popular users to follow</h5>
+          <h5 className="widget-title">People You May Know</h5>
         </div>
+      <div className="widget-body">
 
       {publicUsersFetched && recommendedUsers?.length === 0 && (
         <div className="text-center text-xs italic text-slate-400">
@@ -145,11 +147,11 @@ const Rightbar = () => {
           recommendedUsers.map((user) => (
             <li
               key={user._id}
-              className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white/95 px-3 py-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              className="sidebar-row justify-between"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex min-w-0 items-center gap-2">
                 <img
-                  className="h-8 w-8 flex-shrink-0 rounded-full object-cover"
+                  className="avatar-sm"
                   src={user.avatar}
                   alt={user.name}
                 />
@@ -169,14 +171,14 @@ const Rightbar = () => {
               <button
                 disabled={followLoading[user._id]}
                 onClick={() => followUserHandler(user._id)}
-                className="group rounded-xl border border-dashed border-primary px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                className="btn-follow"
               >
                 {followLoading[user._id] ? (
-                  <div className="flex items-center justify-center gap-2 group-hover:text-white">
+                  <div className="flex items-center justify-center gap-2">
                     <span className="loader"></span>
                   </div>
                 ) : (
-                  <p className="flex items-center gap-1 group-hover:text-white">
+                  <p className="flex items-center gap-1">
                     <BsPersonPlusFill className="inline-block" />
                     Follow
                   </p>
@@ -185,6 +187,7 @@ const Rightbar = () => {
             </li>
           ))}
       </ul>
+      </div>
       </section>
     </aside>
   );
