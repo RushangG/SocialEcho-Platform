@@ -125,3 +125,14 @@ export const unbanUser = async (communityName, userId) => {
     return handleApiError(error);
   }
 };
+
+export const deleteRuleFromCommunity = async (communityName, ruleId) => {
+  try {
+    const { data } = await COMMUNITY_API.delete(
+      `/communities/${communityName}/rules/${ruleId}`
+    );
+    return { error: null, data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

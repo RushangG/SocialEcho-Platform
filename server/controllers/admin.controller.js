@@ -794,8 +794,50 @@ const addRulesToCommunity = async (req, res) => {
     });
   }
 };
+/**
+ * @route GET /admin/communities/:communityId/rules
+ * Returns all rules (populated) for a specific community
+ */
+const getCommunityRules = async (req, res) => {
+  try {
+    const { communityId } = req.params;
+    const community = await Community.findById(communityId)
+      .populate("rules")
+      .select("rules")
+      .lean();
+    if (!community) {
+      return res.status(404).json({ message: "Community not found" });
+    }
+    res.status(200).json(community.rules);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving community rules" });
+  }
+};
+
+/**
+ * @route DELETE /admin/communities/:communityId/rules/:ruleId
+ * Removes a rule reference from a community (Rule document is NOT deleted)
+ */
+const removeRuleFromCommunity = async (req, res) => {
+  try {
+    const { communityId, ruleId } = req.params;
+    const community = await Community.findById(communityId);
+    if (!community) {
+      return res.status(404).json({ message: "Community not found" });
+    }
+    await Community.findByIdAndUpdate(
+      communityId,
+      { $pull: { rules: ruleId } },
+      { new: true }
+    );
+    res.status(200).json({ message: "Rule removed from community successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing rule from community" });
+  }
+};
 
 module.exports = {
+
   retrieveServicePreference,
   updateServicePreference,
   retrieveLogInfo,
@@ -803,6 +845,8 @@ module.exports = {
   signin,
   getCommunities,
   getCommunity,
+  getCommunityRules,
+  removeRuleFromCommunity,
   addModerator,
   removeModerator,
   getModerators,

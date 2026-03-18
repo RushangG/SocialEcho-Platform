@@ -8,6 +8,8 @@ const {
   retrieveServicePreference,
   getCommunities,
   getCommunity,
+  getCommunityRules,
+  removeRuleFromCommunity,
   addModerator,
   removeModerator,
   getModerators,
@@ -44,7 +46,9 @@ router.post("/communities", bannerUpload, addCommunities);
 // Rules management
 router.get("/rules", getRules);
 router.post("/rules", addRules);
+router.get("/communities/:communityId/rules", getCommunityRules);
 router.post("/communities/:communityId/rules", addRulesToCommunity);
+router.delete("/communities/:communityId/rules/:ruleId", removeRuleFromCommunity);
 
 // Moderator management
 router.get("/moderators", getModerators);

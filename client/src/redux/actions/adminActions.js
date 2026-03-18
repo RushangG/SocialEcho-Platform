@@ -25,7 +25,7 @@ export const logoutAction = () => async (dispatch) => {
     dispatch({
       type: types.LOGOUT_SUCCESS,
     });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getLogsAction = () => async (dispatch) => {
@@ -357,3 +357,24 @@ export const updateUserRoleAction = (userId, role) => async (dispatch) => {
     return { success: false, error: error.message };
   }
 };
+
+export const getCommunityRulesAction = (communityId) => async (dispatch) => {
+  try {
+    const { error, data } = await api.getCommunityRules(communityId);
+    if (error) throw new Error(error);
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+};
+
+export const removeRuleFromCommunityAction =
+  (communityId, ruleId) => async (dispatch) => {
+    try {
+      const { error, data } = await api.removeRuleFromCommunity(communityId, ruleId);
+      if (error) throw new Error(error);
+      return { success: true, data };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  };

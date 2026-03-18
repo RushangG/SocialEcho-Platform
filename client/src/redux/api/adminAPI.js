@@ -168,3 +168,21 @@ export const updateUserRole = async (userId, role) => {
     return handleApiError(error);
   }
 };
+
+export const getCommunityRules = async (communityId) => {
+  try {
+    const res = await ADMIN_API.get(`/communities/${communityId}/rules`);
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const removeRuleFromCommunity = async (communityId, ruleId) => {
+  try {
+    const res = await ADMIN_API.delete(`/communities/${communityId}/rules/${ruleId}`);
+    return { error: null, data: res.data };
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
