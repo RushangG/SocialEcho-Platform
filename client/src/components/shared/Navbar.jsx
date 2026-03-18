@@ -57,7 +57,7 @@ const Navbar = ({ userData, toggleLeftbar, showLeftbar }) => {
         </div>
 
         <div className="flex flex-1 items-center justify-center md:justify-center">
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-xl">
             <Search />
           </div>
         </div>
