@@ -91,7 +91,7 @@ const AdminSignIn = () => {
                 <input
                   id="admin-password" type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange}
                   onFocus={() => setFocused("password")} onBlur={() => setFocused("")}
-                  className="auth-input" placeholder="••••••••" aria-label="Password" autoComplete="off"
+                  className="auth-input" placeholder="Enter your password" aria-label="Password" autoComplete="off"
                 />
                 <button
                   type="button"
