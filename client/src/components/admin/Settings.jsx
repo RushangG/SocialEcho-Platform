@@ -149,8 +149,8 @@ const Settings = () => {
               >
                 <option value="">Select a provider</option>
                 <option value="TextRazor">TextRazor</option>
-                <option value="InterfaceAPI">InterfaceAPI</option>
                 <option value="ClassifierAPI">ClassifierAPI</option>
+                <option value="InterfaceAPI">InterfaceAPI</option>
                 <option value="disabled">Disabled</option>
               </select>
               <IoChevronDownOutline className="settings-select-arrow" />
