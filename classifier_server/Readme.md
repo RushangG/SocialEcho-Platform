@@ -92,4 +92,19 @@ The app will return a JSON response with a list of categories and their scores, 
     ]
   }
 }
+
+
+Terminal 1 (classifier):
+cd E:\sem-8-project\socialEcho\classifier_server
+E:\sem-8-project\.venv\Scripts\python.exe classifier_api.py
+Terminal 2 (backend on 4000, from package.json):
+cd E:\sem-8-project\socialEcho\server
+npm start
+Terminal 3 (frontend, from package.json):
+cd E:\sem-8-project\socialEcho\client
+npm start
+
+
+npm start:with-classifer  (server + python file)
+Test in UI
 ```

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
+    "start:with-classifier": "concurrently -k -n server,classifier -c green,cyan \"nodemon app.js\" \"..\\..\\.venv\\Scripts\\python.exe ../classifier_server/classifier_api.py\"",
     "production": "node app.js"
   },
   "author": "Janvi",
@@ -40,6 +41,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "eslint": "^8.2.0",
     "husky": "^7.0.4",
     "jest": "^27.4.5",
