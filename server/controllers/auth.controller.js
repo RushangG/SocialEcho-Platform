@@ -4,8 +4,8 @@ const SuspiciousLogin = require("../models/suspiciousLogin.model");
 const geoip = require("geoip-lite");
 const { saveLogInfo } = require("../middlewares/logger/logInfo");
 const formatCreatedAt = require("../utils/timeConverter");
-
-const types = {
+  
+const types = { 
   NO_CONTEXT_DATA: "no_context_data",
   MATCH: "match",
   BLOCKED: "blocked",
